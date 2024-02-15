@@ -128,14 +128,13 @@ include('../models/conexion.php');
                     </td>
                     <td class="td-style" label-item='Nombre'><?php echo $filas['Nombre'] ?></td>
                     <td class="td-style" label-item='Cantidad'><?php echo $filas['Apellido'] ?></td>
-                    <td class="td-style" label-item='Unidad_Medida'><?php echo $filas['Documento'] ?></td>
-                    <td class="td-style" label-item='Unidad_Medida'><?php echo $filas['Correo'] ?></td>
+                    <td class="td-style" label-item='Documento'><?php echo $filas['Documento'] ?></td>
+                    <td class="td-style" label-item='Correo'><?php echo $filas['Correo'] ?></td>
                     <td class="td-style td-actions" label-item='Acciones'>
-                      <img class="discount" src={discount} />
-
-                      <a href="">
-                        <img class="edit" src={edit} alt="" />
-                      </a>
+                      <form method="POST" action="../vistas/modificarUsuario.php">
+                        <input type="hidden" name="Id_Usuario" value="<?php echo $filas['Id_Usuario']; ?>">
+                        <input type="submit" value="Modificar">
+                      </form>
 
                     </td>
                   </tr>
@@ -150,6 +149,7 @@ include('../models/conexion.php');
             </table>
           </div>
 
+          
           <div class="container-pagination-report">
             <div class="container-pagination">
               <div class="content-pagination">

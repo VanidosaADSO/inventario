@@ -214,11 +214,14 @@
   height: 36px;
   font-size: 14;
   border: none;
-  color: #ffffff;
+  color: #000000;
+  background-color: #41AF46;
   border-radius: 5px;
 }
 
-/* .boton {
+
+
+ .boton {
   background-color: #4CAF50; 
   border: none;
   color: white; 
@@ -231,7 +234,7 @@
 
 .boton:hover {
   background-color: #228627; 
-} */
+}
 
 @media only screen and (max-width: 1080px) {
   .container-menu {
