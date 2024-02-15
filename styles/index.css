@@ -1,0 +1,82 @@
+.inicio-sesion{
+    background-color: #0AA3E1;
+}
+
+
+
+
+.container_login {
+    margin-top: 100px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 25px 20px 50px;
+    border: 2px solid rgba(255, 255, 255, 0.562);
+    width: 500px;
+    border-radius: 10px;
+    margin-top: 70px;
+}
+
+.title-login {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+
+.img-login {
+    justify-content: center;
+    margin: auto;
+    display: flex;
+    width: 120px;
+    height: 120px;
+}
+
+.content-form {
+    width: 450px;
+    border-radius: 5px;
+    padding: 1em;
+    background-color: #41AF46;
+}
+
+.input_login {
+    color: rgb(109, 84, 84);
+    border: none;
+    border-bottom: 1px solid #c0c0c0;
+    width: 100%;
+    outline: none;
+    line-height: 45px;
+    margin: 5px 0px 5px;
+    border-radius: 5px;
+}
+
+.link-login {
+    font-size: 16px;
+    line-height: 1.8;
+    margin: 0;
+    padding: 10px;
+    text-align: center;
+}
+
+.content-button-login {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+
+.bnt-loguear {
+    background-color: #c6c6c6;
+    width: 90px;
+    height: 40px;
+    border-radius: 5px;
+    color: #000000;
+    border: none;
+    text-align: center;
+}
+
+.bnt-loguear:hover{
+    background-color: #0AA3E1;
+    color: #000000;
+}
