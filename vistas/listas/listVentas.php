@@ -1,6 +1,7 @@
 <?php
-include('../models/conexion.php');
+include('../../models/conexion.php');
 ?>
+
 
 
 <!DOCTYPE html>
@@ -9,8 +10,8 @@ include('../models/conexion.php');
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="../styles/listVentas.css">
-  <title>ListUsuario</title>
+  <link rel="stylesheet" href="../../styles/listVentas.css">
+  <title>ListVentas</title>
 </head>
 
 <body>
@@ -22,7 +23,7 @@ include('../models/conexion.php');
         <img class="bars-icon" src="../img/menuLateral.svg" alt="Menu icon" />
       </label>
     </div>
-    <a href="../vistas/dahsboard.php">
+    <a href="../dahsboard.php">
       <img class="logo-header" src="../img/logo.png" alt="logo" />
     </a>
 
@@ -35,20 +36,20 @@ include('../models/conexion.php');
   <div class="container-menu menuActive" id="menuToggle">
 
     <div class="content-logo">
-      <a href="../vistas/dahsboard.php">
+      <a href="../dahsboard.php">
         <img class="logo-menu" src="../img/logo.png" alt="logo" />
       </a>
     </div>
 
     <div class="menu">
-      <a class="content-link-menu" href="../vistas/dahsboard.php">
+      <a class="content-link-menu" href="../dahsboard.php">
         <div class="content-icon-menu">
           <img class="icon-menu" src="../img/home.png" alt="" />
         </div>
         <span class="text-menu">Inicio</span>
       </a>
 
-      <a class="content-link-menu" href="../vistas/linstUsuario.php">
+      <a class="content-link-menu" href="../listas/linstUsuario.php">
         <div class="content-icon-menu">
           <img class="icon-menu" src="../img/usuarios.png" alt="" />
         </div>
@@ -56,27 +57,27 @@ include('../models/conexion.php');
       </a>
 
 
-      <a class="content-link-menu" href="#">
+      <a class="content-link-menu" href="../listas/listCliente.php">
         <div class="content-icon-menu">
           <img class="icon-menu" src="../img/clientes.png" alt="" />
         </div>
         <span class="text-menu">Clientes</span>
       </a>
 
-      <a class="content-link-menu" href="#">
+      <a class="content-link-menu" href="../listas/listProveedor.php">
         <div class="content-icon-menu ">
           <img class="icon-menu" src="../img/proveedor.png" alt="" />
         </div>
         <span class="text-menu">Proveedores</span>
       </a>
 
-      <a class="content-link-menu" href="#">
+      <a class="content-link-menu" href="../listas/listProductos.php">
         <div class="content-icon-menu ">
           <img class="icon-menu" src="../img/productos.png" alt="" />
         </div>
         <span class="text-menu">Productos</span>
       </a>
-      <a class="content-link-menu" href="./listVentas.html">
+      <a class="content-link-menu" href="../listas/listVentas.php">
         <div class="content-icon-menu">
           <img class="icon-menu" src="../img/ventas.png" alt="" />
         </div>
@@ -87,12 +88,13 @@ include('../models/conexion.php');
 
   </div>
 
+
   <div class="hola">
     <div class="contenedor">
-      <h1 class="title">LISTA DE USUARIOS</h1>
+      <h1 class="title">LISTA DE VENTAS</h1>
       <div class="container-list">
         <div class="conten-search">
-          <a class="link-registrar" href="./ventas.html">Registrar usuario</a>
+          <a class="link-registrar" href="../crear/ventas.php">Registrar venta</a>
 
           <div class="container-input-search">
             <input class="input-buscar" type="text" placeholder="Buscar..." />
@@ -107,32 +109,37 @@ include('../models/conexion.php');
               <thead>
                 <tr>
                   <th class="th-style ">ID</th>
-                  <th class="th-style">Nombre</th>
-                  <th class="th-style ">Apellido</th>
-                  <th class="th-style ">Documento</th>
-                  <th class="th-style ">Correo</th>
+                  <th class="th-style">Productos</th>
+                  <th class="th-style ">Cantidad</th>
+                  <th class="th-style ">Precio Unidad</th>
+                  <th class="th-style ">Precio Total</th>
+                  <th class="th-style ">Precio Venta</th>
+                  <th class="th-style ">Fecha</th>
+                  <th class="th-style ">Cliente</th>
                   <th class="th-style th-actions">Acciones</th>
                 </tr>
               </thead>
               <tbody>
-
                 <?php
-                $sql = "SELECT * FROM usuario";
+                $sql = "SELECT * FROM venta";
                 $resultado = mysqli_query($conexion, $sql);
 
                 while ($filas = mysqli_fetch_array($resultado)) {
                 ?>
                   <tr>
                     <td class="td-style" label-item='Id'>
-                      <?php echo $filas['Id_Usuario'] ?>
+                      <?php echo $filas['Id_Venta'] ?>
                     </td>
-                    <td class="td-style" label-item='Nombre'><?php echo $filas['Nombre'] ?></td>
-                    <td class="td-style" label-item='Cantidad'><?php echo $filas['Apellido'] ?></td>
-                    <td class="td-style" label-item='Documento'><?php echo $filas['Documento'] ?></td>
-                    <td class="td-style" label-item='Correo'><?php echo $filas['Correo'] ?></td>
+                    <td class="td-style" label-item='Productos'><?php echo $filas['Productos'] ?></td>
+                    <td class="td-style" label-item='Cantidad'><?php echo $filas['Cantidad'] ?></td>
+                    <td class="td-style" label-item='Precio Unidad'><?php echo $filas['PrecioUnidad'] ?></td>
+                    <td class="td-style" label-item='Precio Total'><?php echo $filas['PrecioTotal'] ?></td>
+                    <td class="td-style" label-item='Precio Venta'><?php echo $filas['PrecioTotalVenta'] ?></td>
+                    <td class="td-style" label-item='Fecha'><?php echo $filas['Fecha'] ?></td>
+                    <td class="td-style" label-item='Cliente'><?php echo $filas['Id_Cliente'] ?></td>
                     <td class="td-style td-actions" label-item='Acciones'>
                       <form method="POST" action="../vistas/modificarUsuario.php">
-                        <input type="hidden" name="Id_Usuario" value="<?php echo $filas['Id_Usuario']; ?>">
+                        <input type="hidden" name="Id_Venta" value="<?php echo $filas['Id_Venta']; ?>">
                         <input type="submit" value="Modificar">
                       </form>
 
@@ -142,14 +149,10 @@ include('../models/conexion.php');
 
                 }
                 ?>
-
-
-
               </tbody>
             </table>
           </div>
 
-          
           <div class="container-pagination-report">
             <div class="container-pagination">
               <div class="content-pagination">

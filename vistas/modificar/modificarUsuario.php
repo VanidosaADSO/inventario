@@ -1,5 +1,5 @@
 <?php
-include('../models/conexion.php');
+include('../../models/conexion.php');
 
 if (isset($_POST['Id_Usuario'])) {
     $sqlid = $_POST['Id_Usuario'];
@@ -26,7 +26,7 @@ if (isset($_POST['Id_Usuario'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../styles//ventas.css">
+    <link rel="stylesheet" href="../../styles/ventas.css">
     <title>Modificar usuario</title>
 </head>
 
@@ -51,58 +51,58 @@ if (isset($_POST['Id_Usuario'])) {
 
     <div class="container-menu menuActive" id="menuToggle">
 
-        <div class="content-logo">
-            <a href="../vistas/dahsboard.php">
-                <img class="logo-menu" src="../img/logo.png" alt="logo" />
-            </a>
+    <div class="content-logo">
+      <a href="../vistas/dahsboard.php">
+        <img class="logo-menu" src="../img/logo.png" alt="logo" />
+      </a>
+    </div>
+
+    <div class="menu">
+      <a class="content-link-menu" href="../vistas/dahsboard.php">
+        <div class="content-icon-menu">
+          <img class="icon-menu" src="../img/home.png" alt="" />
         </div>
+        <span class="text-menu">Inicio</span>
+      </a>
 
-        <div class="menu">
-            <a class="content-link-menu" href="../vistas/dahsboard.php">
-                <div class="content-icon-menu">
-                    <img class="icon-menu" src="../img/home.png" alt="" />
-                </div>
-                <span class="text-menu">Inicio</span>
-            </a>
-
-            <a class="content-link-menu" href="../vistas/linstUsuario.php">
-                <div class="content-icon-menu">
-                    <img class="icon-menu" src="../img/usuarios.png" alt="" />
-                </div>
-                <span class="text-menu">Administrador</span>
-            </a>
-
-
-            <a class="content-link-menu" href="#">
-                <div class="content-icon-menu">
-                    <img class="icon-menu" src="../img/clientes.png" alt="" />
-                </div>
-                <span class="text-menu">Clientes</span>
-            </a>
-
-            <a class="content-link-menu" href="#">
-                <div class="content-icon-menu ">
-                    <img class="icon-menu" src="../img/proveedor.png" alt="" />
-                </div>
-                <span class="text-menu">Proveedores</span>
-            </a>
-
-            <a class="content-link-menu" href="#">
-                <div class="content-icon-menu ">
-                    <img class="icon-menu" src="../img/productos.png" alt="" />
-                </div>
-                <span class="text-menu">Productos</span>
-            </a>
-            <a class="content-link-menu" href="./listVentas.html">
-                <div class="content-icon-menu">
-                    <img class="icon-menu" src="../img/ventas.png" alt="" />
-                </div>
-                <span class="text-menu">Ventas</span>
-            </a>
-
+      <a class="content-link-menu" href="../listas/linstUsuario.php">
+        <div class="content-icon-menu">
+          <img class="icon-menu" src="../img/usuarios.png" alt="" />
         </div>
+        <span class="text-menu">Administrador</span>
+      </a>
+
+
+      <a class="content-link-menu" href="../listas/listCliente.php">
+        <div class="content-icon-menu">
+          <img class="icon-menu" src="../img/clientes.png" alt="" />
+        </div>
+        <span class="text-menu">Clientes</span>
+      </a>
+
+      <a class="content-link-menu" href="../listas/listProveedor.php">
+        <div class="content-icon-menu ">
+          <img class="icon-menu" src="../img/proveedor.png" alt="" />
+        </div>
+        <span class="text-menu">Proveedores</span>
+      </a>
+
+      <a class="content-link-menu" href="../listas/listProductos.php">
+        <div class="content-icon-menu ">
+          <img class="icon-menu" src="../img/productos.png" alt="" />
+        </div>
+        <span class="text-menu">Productos</span>
+      </a>
+      <a class="content-link-menu" href="../listas/listCliente.php">
+        <div class="content-icon-menu">
+          <img class="icon-menu" src="../img/ventas.png" alt="" />
+        </div>
+        <span class="text-menu">Ventas</span>
+      </a>
 
     </div>
+
+  </div>
 
     <div class="hola">
         <div class="contenedor">
@@ -134,7 +134,7 @@ if (isset($_POST['Id_Usuario'])) {
                     </div>
                     <div class="container-button">
                         <div class="content-button">
-                            <input class="general-button boton" name="guardarcambios" type="submit" value="Guardar cambios" id="guardarcambios" />
+                            <input class="general-button boton" name="guardarcambios" type="submit" value="Modificar" id="guardarcambios" />
                         </div>
                     </div>
                 </form>
@@ -156,7 +156,7 @@ if (isset($_POST['Id_Usuario'])) {
         $info = $conexion->prepare($sql);
         $info->bind_param("ssssi", $nombre, $apellido, $documento, $correo, $Id_Usuario);
         if ($info->execute()) {
-            include("../vistas/linstUsuario.php");
+            include("../listas/linstUsuario.php");
         } else {
             echo "Error al actualizar el usuario.";
         }

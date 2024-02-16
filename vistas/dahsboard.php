@@ -43,7 +43,7 @@
         <span class="text-menu">Inicio</span>
       </a>
 
-      <a class="content-link-menu" href="../vistas/linstUsuario.php">
+      <a class="content-link-menu" href="../vistas/listas/linstUsuario.php">
         <div class="content-icon-menu">
           <img class="icon-menu" src="../img/usuarios.png" alt="" />
         </div>
@@ -51,27 +51,27 @@
       </a>
 
 
-      <a class="content-link-menu" href="#">
+      <a class="content-link-menu" href="../vistas/listas/listCliente.php">
         <div class="content-icon-menu">
           <img class="icon-menu" src="../img/clientes.png" alt="" />
         </div>
         <span class="text-menu">Clientes</span>
       </a>
 
-      <a class="content-link-menu" href="#">
+      <a class="content-link-menu" href="../vistas/listas/listProveedor.php">
         <div class="content-icon-menu ">
           <img class="icon-menu" src="../img/proveedor.png" alt="" />
         </div>
         <span class="text-menu">Proveedores</span>
       </a>
 
-      <a class="content-link-menu" href="#">
+      <a class="content-link-menu" href="../vistas/listas/listProductos.php">
         <div class="content-icon-menu ">
           <img class="icon-menu" src="../img/productos.png" alt="" />
         </div>
         <span class="text-menu">Productos</span>
       </a>
-      <a class="content-link-menu" href="./listVentas.html">
+      <a class="content-link-menu" href="../vistas/listas/listVentas.php">
         <div class="content-icon-menu">
           <img class="icon-menu" src="../img/ventas.png" alt="" />
         </div>
