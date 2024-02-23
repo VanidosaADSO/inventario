@@ -34,65 +34,65 @@ include('../../models/conexion.php');
 
   <div class="container-menu menuActive" id="menuToggle">
 
-<div class="content-logo">
-  <a href="../dahsboard.php">
-    <img class="logo-menu" src="../img/logo.png" alt="logo" />
-  </a>
-</div>
-
-<div class="menu">
-  <a class="content-link-menu" href="../dahsboard.php">
-    <div class="content-icon-menu">
-      <img class="icon-menu" src="../img/home.png" alt="" />
+    <div class="content-logo">
+      <a href="../dahsboard.php">
+        <img class="logo-menu" src="../img/logo.png" alt="logo" />
+      </a>
     </div>
-    <span class="text-menu">Inicio</span>
-  </a>
 
-  <a class="content-link-menu" href="../listas/linstUsuario.php">
-    <div class="content-icon-menu">
-      <img class="icon-menu" src="../img/usuarios.png" alt="" />
+    <div class="menu">
+      <a class="content-link-menu" href="../dahsboard.php">
+        <div class="content-icon-menu">
+          <img class="icon-menu" src="../img/home.png" alt="" />
+        </div>
+        <span class="text-menu">Inicio</span>
+      </a>
+
+      <a class="content-link-menu" href="../listas/linstUsuario.php">
+        <div class="content-icon-menu">
+          <img class="icon-menu" src="../img/usuarios.png" alt="" />
+        </div>
+        <span class="text-menu">Administrador</span>
+      </a>
+
+
+      <a class="content-link-menu" href="../listas/listCliente.php">
+        <div class="content-icon-menu">
+          <img class="icon-menu" src="../img/clientes.png" alt="" />
+        </div>
+        <span class="text-menu">Clientes</span>
+      </a>
+
+      <a class="content-link-menu" href="../listas/listProveedor.php">
+        <div class="content-icon-menu ">
+          <img class="icon-menu" src="../img/proveedor.png" alt="" />
+        </div>
+        <span class="text-menu">Proveedores</span>
+      </a>
+
+      <a class="content-link-menu" href="../listas/listProductos.php">
+        <div class="content-icon-menu ">
+          <img class="icon-menu" src="../img/productos.png" alt="" />
+        </div>
+        <span class="text-menu">Productos</span>
+      </a>
+      <a class="content-link-menu" href="../listas/listVentas.php">
+        <div class="content-icon-menu">
+          <img class="icon-menu" src="../img/ventas.png" alt="" />
+        </div>
+        <span class="text-menu">Ventas</span>
+      </a>
+
     </div>
-    <span class="text-menu">Administrador</span>
-  </a>
 
-
-  <a class="content-link-menu" href="../listas/listCliente.php">
-    <div class="content-icon-menu">
-      <img class="icon-menu" src="../img/clientes.png" alt="" />
-    </div>
-    <span class="text-menu">Clientes</span>
-  </a>
-
-  <a class="content-link-menu" href="../listas/listProveedor.php">
-    <div class="content-icon-menu ">
-      <img class="icon-menu" src="../img/proveedor.png" alt="" />
-    </div>
-    <span class="text-menu">Proveedores</span>
-  </a>
-
-  <a class="content-link-menu" href="../listas/listProductos.php">
-    <div class="content-icon-menu ">
-      <img class="icon-menu" src="../img/productos.png" alt="" />
-    </div>
-    <span class="text-menu">Productos</span>
-  </a>
-  <a class="content-link-menu" href="../listas/listVentas.php">
-    <div class="content-icon-menu">
-      <img class="icon-menu" src="../img/ventas.png" alt="" />
-    </div>
-    <span class="text-menu">Ventas</span>
-  </a>
-
-</div>
-
-</div>
+  </div>
 
   <div class="hola">
     <div class="contenedor">
       <h1 class="title">LISTA DE USUARIOS</h1>
       <div class="container-list">
         <div class="conten-search">
-          <a class="link-registrar" href="./ventas.html">Registrar usuario</a>
+          <a class="link-registrar" href="../crear/administrador.php">Registrar usuario</a>
 
           <div class="container-input-search">
             <input class="input-buscar" type="text" placeholder="Buscar..." />
@@ -133,8 +133,15 @@ include('../../models/conexion.php');
                     <td class="td-style td-actions" label-item='Acciones'>
                       <form method="POST" action="../modificar/modificarUsuario.php">
                         <input type="hidden" name="Id_Usuario" value="<?php echo $filas['Id_Usuario']; ?>">
-                        <input type="submit" value="Modificar">
+                        <button style="border: none;" type="submit">
+                          <img class="icon-menu" src="../img/edit.svg" alt="Edit" />
+                        </button>
                       </form>
+
+                      <a href="../../controller/eliminar/eliminarUsuario.php?Id_Usuario=<?php echo $filas['Id_Usuario']; ?>">
+                        <img 
+                           class="icon-menu" src="../img/eliminar.png" alt="Eliminar usuario">
+                      </a>
 
                     </td>
                   </tr>
@@ -149,7 +156,7 @@ include('../../models/conexion.php');
             </table>
           </div>
 
-          
+
           <div class="container-pagination-report">
             <div class="container-pagination">
               <div class="content-pagination">

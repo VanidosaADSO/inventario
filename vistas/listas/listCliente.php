@@ -92,7 +92,7 @@ include('../../models/conexion.php');
       <h1 class="title">LISTA DE CLIENTES</h1>
       <div class="container-list">
         <div class="conten-search">
-          <a class="link-registrar" href="./ventas.html">Registrar cliente</a>
+          <a class="link-registrar" href="../crear/cliente.php">Registrar cliente</a>
 
           <div class="container-input-search">
             <input class="input-buscar" name="buscar" id="buscar" type="text" placeholder="Buscar..." />
@@ -133,9 +133,13 @@ include('../../models/conexion.php');
                     <td class="td-style td-actions" label-item='Acciones'>
                       <form method="POST" action="../modificar/modificarCliente.php">
                         <input type="hidden" name="Id_Cliente" value="<?php echo $filas['Id_Cliente']; ?>">
-                        <input type="submit" value="Modificar">
+                        <button style="border: none;" type="submit">
+                          <img class="icon-menu" src="../img/edit.svg" alt="Edit" />
+                        </button>
                       </form>
-
+                      <a href="../../controller/eliminar/eliminarCliente.php?Id_Cliente=<?php echo $filas['Id_Cliente']; ?>">
+                        <img class="icon-menu" src="../img/eliminar.png" alt="Eliminar usuario">
+                      </a>
                     </td>
                   </tr>
                 <?php

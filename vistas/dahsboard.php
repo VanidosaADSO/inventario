@@ -21,7 +21,7 @@
       <img class="logo-header" src="../img/logo.png" alt="logo" />
     </a>
 
-    <img class="img-account" src="../img/bugatti.jpg" alt="" />
+    <img class="img-account" src="../vistas/img/bugatti.jpg" alt="" />
 
   </header>
 
@@ -31,21 +31,21 @@
 
     <div class="content-logo">
       <a href="../vistas/dahsboard.php">
-        <img class="logo-menu" src="../img/logo.png" alt="logo" />
+        <img class="logo-menu" src="../vistas/img/logo.png" alt="logo" />
       </a>
     </div>
 
     <div class="menu">
       <a class="content-link-menu" href="../vistas/dahsboard.php">
         <div class="content-icon-menu">
-          <img class="icon-menu" src="../img/home.png" alt="" />
+          <img class="icon-menu" src="../vistas/img/home.png" alt="" />
         </div>
         <span class="text-menu">Inicio</span>
       </a>
 
       <a class="content-link-menu" href="../vistas/listas/linstUsuario.php">
         <div class="content-icon-menu">
-          <img class="icon-menu" src="../img/usuarios.png" alt="" />
+          <img class="icon-menu" src="../vistas/img/usuarios.png" alt="" />
         </div>
         <span class="text-menu">Administrador</span>
       </a>
@@ -53,27 +53,27 @@
 
       <a class="content-link-menu" href="../vistas/listas/listCliente.php">
         <div class="content-icon-menu">
-          <img class="icon-menu" src="../img/clientes.png" alt="" />
+          <img class="icon-menu" src="../vistas/img/clientes.png" alt="" />
         </div>
         <span class="text-menu">Clientes</span>
       </a>
 
       <a class="content-link-menu" href="../vistas/listas/listProveedor.php">
         <div class="content-icon-menu ">
-          <img class="icon-menu" src="../img/proveedor.png" alt="" />
+          <img class="icon-menu" src="../vistas/img/proveedor.png" alt="" />
         </div>
         <span class="text-menu">Proveedores</span>
       </a>
 
       <a class="content-link-menu" href="../vistas/listas/listProductos.php">
         <div class="content-icon-menu ">
-          <img class="icon-menu" src="../img/productos.png" alt="" />
+          <img class="icon-menu" src="../vistas/img/productos.png" alt="" />
         </div>
         <span class="text-menu">Productos</span>
       </a>
       <a class="content-link-menu" href="../vistas/listas/listVentas.php">
         <div class="content-icon-menu">
-          <img class="icon-menu" src="../img/ventas.png" alt="" />
+          <img class="icon-menu" src="../vistas/img/ventas.png" alt="" />
         </div>
         <span class="text-menu">Ventas</span>
       </a>

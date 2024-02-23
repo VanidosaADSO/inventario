@@ -140,9 +140,15 @@ include('../../models/conexion.php');
                     <td class="td-style td-actions" label-item='Acciones'>
                       <form method="POST" action="../vistas/modificarUsuario.php">
                         <input type="hidden" name="Id_Venta" value="<?php echo $filas['Id_Venta']; ?>">
-                        <input type="submit" value="Modificar">
+                        <button style="border: none;" type="submit">
+                          <img class="icon-menu" src="../img/edit.svg" alt="Edit" />
+                        </button>
                       </form>
 
+                      <!-- <a href="../../controller/eliminar/?Id_Usuario=<?php echo $filas['Id_Usuario']; ?>">
+                        <img 
+                           class="icon-menu" src="../img/eliminar.png" alt="Eliminar usuario">
+                      </a> -->
                     </td>
                   </tr>
                 <?php

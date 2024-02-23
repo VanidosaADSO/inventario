@@ -30,13 +30,13 @@
   <div class="container-menu menuActive" id="menuToggle">
 
     <div class="content-logo">
-      <a href="../dahsboard.php">
+      <a href="../vistas/dahsboard.php">
         <img class="logo-menu" src="../img/logo.png" alt="logo" />
       </a>
     </div>
 
     <div class="menu">
-      <a class="content-link-menu" href="../dahsboard.php">
+      <a class="content-link-menu" href="../vistas/dahsboard.php">
         <div class="content-icon-menu">
           <img class="icon-menu" src="../img/home.png" alt="" />
         </div>
@@ -71,7 +71,7 @@
         </div>
         <span class="text-menu">Productos</span>
       </a>
-      <a class="content-link-menu" href="../listas/listVentas.php">
+      <a class="content-link-menu" href="../listas/listCliente.php">
         <div class="content-icon-menu">
           <img class="icon-menu" src="../img/ventas.png" alt="" />
         </div>
@@ -82,11 +82,12 @@
 
   </div>
 
+
   <div class="hola">
     <div class="contenedor">
       <h1 class="title">REGISTRAR VENTA</h1>
       <div>
-        <form action="formulario">
+        <form action="../../controller/registrar/registrarVenta.php" method="post">
           <div class="container-fields">
 
             <div class="content-label-input">
@@ -111,30 +112,62 @@
 
             <div class="content-label-input">
               <label>Precio unidad:</label><br>
-              <input class="input-registrar" type="number" id="preU" name="preU">
+              <input class="input-registrar" type="number" id="precioUnidad" name="precioUnidad">
             </div>
 
             <div class="content-label-input">
               <label>Precio Total:</label><br>
-              <input class="input-registrar" type="number" id="preT" name="preT">
+              <input class="input-registrar" type="number" id="precioTotal" name="precioTotal">
             </div>
 
             <div class="content-label-input">
               <label>Total Factura:</label><br>
-              <input class="input-registrar" type="number" id="totalfactura" name="totalfactura">
-            </div>
+              <input class="input-registrar" type="number" id="totalFactura" name="totalFactura">
+            </div> 
           </div>
           <div class="container-button">
             <div className="content-button">
-              <input type="submit" className="general-button cancel-button" value="Cancelar" />
-              <input className="general-button clean-button" type="reset" value="Limpiar" />
+              <a style="                       
+              text-decoration: none ;
+              height: 34px ;
+              padding: 9px 12px ;
+              border-radius:5px;
+              color: #ffffff ;
+              background-color: #0AA3E1 ;
+              border-top: 0px solid #dee2e6 ;
+              border-bottom: 0px solid #dee2e6 ;
+              border-left: 1px solid #dee2e6 ;
+              border-right: 0px solid #dee2e6 ;
+              " href="../listas/listVentas.php">Cancelar</a>
+
+              <input style="                       
+              text-decoration: none ;
+              height: 34px ;
+              padding: 10px 12px ;
+              border-radius:5px;
+              color: #ffffff ;
+              background-color: red ;
+              border-top: 0px solid #dee2e6 ;
+              border-bottom: 0px solid #dee2e6 ;
+              border-left: 1px solid #dee2e6 ;
+              border-right: 0px solid #dee2e6 ;" type="reset" value="Limpiar" />
 
               <!-- <button 
               id="btnRegistrar"
               class="general-button boton">
                 Registrar
               </button> -->
-              <input className="general-button submit-button" type="submit" value="Registrar" id="btnRegistrar" />
+              <input style="                       
+              text-decoration: none ;
+              height: 34px ;
+              padding: 10px 12px ;
+              border-radius:5px;
+              color: #ffffff ;
+              background-color: #41AF46 ;
+              border-top: 0px solid #dee2e6 ;
+              border-bottom: 0px solid #dee2e6 ;
+              border-left: 1px solid #dee2e6 ;
+              border-right: 0px solid #dee2e6 ;" type="submit" value="Registrar" id="btnRegistrar" name="Registrar" />
             </div>
           </div>
         </form>

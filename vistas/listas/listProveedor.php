@@ -92,7 +92,7 @@ include('../../models/conexion.php');
       <h1 class="title">LISTA DE PROVEEDOR</h1>
       <div class="container-list">
         <div class="conten-search">
-          <a class="link-registrar" href="./ventas.html">Registrar proveedor</a>
+          <a class="link-registrar" href="../crear/proveedor.php">Registrar proveedor</a>
 
           <div class="container-input-search">
             <input class="input-buscar" name="buscar" id="buscar" type="text" placeholder="Buscar..." />
@@ -133,9 +133,14 @@ include('../../models/conexion.php');
                     <td class="td-style td-actions" label-item='Acciones'>
                       <form method="POST" action="../modificar/modificarProveedor.php">
                         <input type="hidden" name="Id_Proveedor" value="<?php echo $filas['Id_Proveedor']; ?>">
-                        <input type="submit" value="Modificar">
+                        <button style="border: none;" type="submit">
+                          <img class="icon-menu" src="../img/edit.svg" alt="Edit" />
+                        </button>
                       </form>
-
+                      <a href="../../controller/eliminar/eliminarProveedor.php?Id_Proveedor=<?php echo $filas['Id_Proveedor']; ?>" > 
+                      <img 
+                           class="icon-menu" src="../img/eliminar.png" alt="Eliminar usuario">
+                    </a>
                     </td>
                   </tr>
                 <?php

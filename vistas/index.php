@@ -15,7 +15,7 @@
       >
         <div class="content-title-form">
           <h1 class="title-login">BIENVENIDOS</h1>
-          <img class="img-login" src="../img/logo.png" alt="" />
+          <img class="img-login" src="../vistas/img/logo.png" alt="" />
           <form action="../controller/validarLogin.php" id="formulario" method="post" 
           className="input-inicio">
             <input
