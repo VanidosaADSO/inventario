@@ -65,7 +65,7 @@ if (isset($_POST['Id_Proveedor'])) {
         <span class="text-menu">Inicio</span>
       </a>
 
-      <a class="content-link-menu" href="../listas/linstUsuario.php">
+      <a class="content-link-menu" href="../listas/listUsuario.php">
         <div class="content-icon-menu">
           <img class="icon-menu" src="../img/usuarios.png" alt="" />
         </div>
@@ -108,7 +108,7 @@ if (isset($_POST['Id_Proveedor'])) {
     <div class="contenedor">
       <h1 class="title">MODIFICAR CLIENTE</h1>
       <div>
-        <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+        <form method="post" action="">
           <input type="hidden" name="Id_Proveedor" value="<?php echo $Id_Proveedor; ?>">
           <div class="container-fields">
             <div class="content-label-input">

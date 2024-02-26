@@ -42,7 +42,7 @@
         <span class="text-menu">Inicio</span>
       </a>
 
-      <a class="content-link-menu" href="../listas/linstUsuario.php">
+      <a class="content-link-menu" href="../listas/listUsuario.php">
         <div class="content-icon-menu">
           <img class="icon-menu" src="../img/usuarios.png" alt="" />
         </div>
@@ -87,9 +87,13 @@
     <div class="contenedor">
       <h1 class="title">REGISTRAR USUARIO</h1>
       <div>
-        <form action="../../controller/registrar/usuario.php" method="post">
+        <form action="../../controller/registrar/usuario.php" method="post" enctype="multipart/form-data">
           <div class="container-fields">
 
+            <div class="content-label-input">
+              <label>Imagen</label><br>
+              <input class="input-registrar" type="file" id="imagen" name="imagen">
+            </div>
             <div class="content-label-input">
               <label>Nombre</label><br>
               <input class="input-registrar" type="text" id="nombre" name="nombre">
@@ -117,7 +121,7 @@
 
           </div>
           <div class="container-button">
-            <div className="content-button">
+            <div>
               <a style="                       
               text-decoration: none ;
               height: 34px ;
@@ -129,10 +133,9 @@
               border-bottom: 0px solid #dee2e6 ;
               border-left: 1px solid #dee2e6 ;
               border-right: 0px solid #dee2e6 ;
-              " href="../listas/linstUsuario.php">Cancelar</a>
+              " href="../listas/listUsuario.php">Cancelar</a>
 
-              <input 
-              style="                       
+              <input style="                       
               text-decoration: none ;
               height: 34px ;
               padding: 10px 12px ;
@@ -142,17 +145,15 @@
               border-top: 0px solid #dee2e6 ;
               border-bottom: 0px solid #dee2e6 ;
               border-left: 1px solid #dee2e6 ;
-              border-right: 0px solid #dee2e6 ;"
-               type="reset" value="Limpiar" />
+              border-right: 0px solid #dee2e6 ;" type="reset" value="Limpiar" />
 
               <!-- <button 
               id="btnRegistrar"
               class="general-button boton">
                 Registrar
               </button> -->
-              <input 
-              style="                       
-              text-decoration: none ;
+              <button type="submit" style="
+               text-decoration: none ;
               height: 34px ;
               padding: 10px 12px ;
               border-radius:5px;
@@ -161,8 +162,8 @@
               border-top: 0px solid #dee2e6 ;
               border-bottom: 0px solid #dee2e6 ;
               border-left: 1px solid #dee2e6 ;
-              border-right: 0px solid #dee2e6 ;"
-               type="submit" value="Registrar" id="btnRegistrar" name="Registrar" />
+              border-right: 0px solid #dee2e6 ;
+               " id="btnRegistrar" name="Registrar">Registrar</button>
             </div>
           </div>
         </form>

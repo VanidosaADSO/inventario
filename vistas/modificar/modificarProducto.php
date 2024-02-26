@@ -66,7 +66,7 @@ if (isset($_POST['Id_Producto'])) {
         <span class="text-menu">Inicio</span>
       </a>
 
-      <a class="content-link-menu" href="../listas/linstUsuario.php">
+      <a class="content-link-menu" href="../listas/listUsuario.php">
         <div class="content-icon-menu">
           <img class="icon-menu" src="../img/usuarios.png" alt="" />
         </div>

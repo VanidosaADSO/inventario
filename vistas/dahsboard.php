@@ -9,7 +9,7 @@
 </head>
 
 <body>
-  
+
   <header class="header">
 
     <div>
@@ -21,7 +21,33 @@
       <img class="logo-header" src="../img/logo.png" alt="logo" />
     </a>
 
+    <?php include 'modal_content.php'; ?>
+
+    <!-- Tu imagen que abrirá la ventana modal -->
     <img class="img-account" src="../vistas/img/bugatti.jpg" alt="" />
+    
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        var imgAccount = document.querySelector('.img-account');
+        var modal = document.getElementById('myModal');
+        var closeModalBtn = modal.querySelector('.close');
+
+        // Evento clic en la imagen para abrir la modal
+        imgAccount.onclick = function() {
+          modal.style.display = 'block';
+        }
+
+        closeModalBtn.onclick = function() {
+          modal.style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+          if (event.target == modal) {
+            modal.style.display = 'none';
+          }
+        }
+      });
+    </script>
 
   </header>
 
@@ -43,7 +69,7 @@
         <span class="text-menu">Inicio</span>
       </a>
 
-      <a class="content-link-menu" href="../vistas/listas/linstUsuario.php">
+      <a class="content-link-menu" href="../vistas/listas/listUsuario.php">
         <div class="content-icon-menu">
           <img class="icon-menu" src="../vistas/img/usuarios.png" alt="" />
         </div>
@@ -90,15 +116,15 @@
         <p class="text-ventas">Ventas mensuales:</p>
         <input type="range" class="range" id="rango" name="rango" value="Precio" min="15000" max="450000" />
         <p class="text-ventas">Ventas estimadas: 3000</p>
-        
+
       </div>
-     
+
       <div class="mensuales">
         <p class="text-ventas">Ganacias mensuales:</p>
         <input type="range" class="range" id="rango" name="rango" value="Precio" min="15000" max="450000" />
         <p class="text-ventas">Ganacias estimadas: 54.350.000$</p>
       </div>
-     
+
     </div>
 
     <div class="contenedor-1">

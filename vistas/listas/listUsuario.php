@@ -48,7 +48,7 @@ include('../../models/conexion.php');
         <span class="text-menu">Inicio</span>
       </a>
 
-      <a class="content-link-menu" href="../listas/linstUsuario.php">
+      <a class="content-link-menu" href="../listas/listUsuario.php">
         <div class="content-icon-menu">
           <img class="icon-menu" src="../img/usuarios.png" alt="" />
         </div>
@@ -111,6 +111,7 @@ include('../../models/conexion.php');
                   <th class="th-style ">Apellido</th>
                   <th class="th-style ">Documento</th>
                   <th class="th-style ">Correo</th>
+                  <th class="th-style">Imagen</th>
                   <th class="th-style th-actions">Acciones</th>
                 </tr>
               </thead>
@@ -130,6 +131,7 @@ include('../../models/conexion.php');
                     <td class="td-style" label-item='Cantidad'><?php echo $filas['Apellido'] ?></td>
                     <td class="td-style" label-item='Documento'><?php echo $filas['Documento'] ?></td>
                     <td class="td-style" label-item='Correo'><?php echo $filas['Correo'] ?></td>
+                    <td class="td-style" label-item='Nombre'><img src="data:image/jpg;base64,<?php echo base64_encode($filas['imagen']); ?>" alt="" height="36px"></td>
                     <td class="td-style td-actions" label-item='Acciones'>
                       <form method="POST" action="../modificar/modificarUsuario.php">
                         <input type="hidden" name="Id_Usuario" value="<?php echo $filas['Id_Usuario']; ?>">

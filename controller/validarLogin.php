@@ -13,18 +13,23 @@
 
 
     $filas=mysqli_num_rows($resultado);
-
-    if($filas){
-
-      $_SESSION['documento'] = $documento;   
+    if($filas) {
+      $_SESSION['documento'] = $documento;
+  
+      // Obtener información adicional del usuario y almacenarla en las variables de sesión
+      $usuario = mysqli_fetch_assoc($resultado);
+      $_SESSION['Nombre'] = $usuario['Nombre'];
+      $_SESSION['Correo'] = $usuario['Correo'];
+      $_SESSION['imagen'] = $usuario['imagen'];
+  
       include("../vistas/dahsboard.php");
-  }else{
+  } else {
       include("../vistas/index.php");
       
       $mss="Credenciales invalidas. intente nuevamente";
       echo "<script> alert('".$mss."');</script> ";
-      
   }
+  
 
     mysqli_free_result($resultado);
     mysqli_close($conexion);
