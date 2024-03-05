@@ -17,7 +17,7 @@
     <div class="contenedor">
       <h1 class="title">REGISTRAR USUARIO</h1>
       <div>
-        <form onsubmit="return ValidarAdministrador()"  action="../../controller/registrar/usuario.php" method="post" enctype="multipart/form-data">
+        <form onsubmit="return ValidarAdministrador()"  action="../../controller/registrar/registrarUsuario.php" method="post" enctype="multipart/form-data">
           <div class="container-fields">
 
             <div class="content-label-input">

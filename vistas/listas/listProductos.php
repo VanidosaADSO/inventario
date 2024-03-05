@@ -22,7 +22,7 @@ include('../../models/conexion.php');
       <h1 class="title">LISTA DE PRODUCTOS</h1>
       <div class="container-list">
         <div class="conten-search">
-          <a class="link-registrar" href="../crear/administrador.php">Registrar producto</a>
+          <a class="link-registrar" href="../crear/productos.php">Registrar producto</a>
 
           <div class="container-input-search">
             <input class="input-buscar" type="text" placeholder="Buscar..." />

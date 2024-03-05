@@ -17,7 +17,7 @@
     <div class="contenedor">
       <h1 class="title">REGISTRAR VENTA</h1>
       <div>
-        <form action="../../controller/registrar/registrarVenta.php" method="post">
+        <form onsubmit="return validarVenta()" action="../../controller/registrar/registrarVenta.php" method="post">
           <div class="container-fields">
 
             <div class="content-label-input">
@@ -105,7 +105,7 @@
     </div>
 
   </div>
-
+  <script src="../../controller/js/validarVentas.js"></script>
 </body>
 
 </html>
