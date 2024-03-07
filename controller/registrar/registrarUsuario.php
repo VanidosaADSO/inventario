@@ -10,12 +10,35 @@ if (isset($_POST['Registrar'])) {
     $contrasenaEncryp = md5($contrasena);
     $imagen = addslashes(file_get_contents($_FILES['imagen']['tmp_name']));
 
-    $consulta = "INSERT INTO `usuario`(`nombre`, `apellido`, `documento`, `correo`,`contrasena`, `imagen`) 
+    $consulta_documento = "SELECT * FROM `usuario` WHERE `documento` = '$documento'";
+    $resultado_documento = mysqli_query($conexion, $consulta_documento);
+    if (mysqli_num_rows($resultado_documento) > 0) {
+        $mss = "El documento ya está registrado";
+        echo "<script> 
+                alert('" . $mss . "');
+                window.history.back();
+             </script> ";
+        exit;
+    }
+
+
+    $consulta_correo = "SELECT * FROM `usuario` WHERE `correo` = '$correo'";
+    $resultado_correo = mysqli_query($conexion, $consulta_correo);
+    if (mysqli_num_rows($resultado_correo) > 0) {
+        $mss = "El correo electrónico ya está registrado";
+        echo "<script> 
+                alert('" . $mss . "');
+                window.history.back();
+             </script> ";
+        exit;
+    }
+
+    $consulta_insertar = "INSERT INTO `usuario`(`nombre`, `apellido`, `documento`, `correo`,`contrasena`, `imagen`) 
     VALUES ('$nombre','$apellido','$documento','$correo','$contrasenaEncryp', '$imagen');";
 
-    $resultado = mysqli_query($conexion, $consulta);
+    $resultado_insertar = mysqli_query($conexion, $consulta_insertar);
 
-    if ($resultado) {
+    if ($resultado_insertar) {
         $mss = "Guardado correctamente";
         echo "<script> alert('" . $mss . "');
         window.location.href = '../../vistas/listas/listUsuario.php';
@@ -27,3 +50,4 @@ if (isset($_POST['Registrar'])) {
         include('../vistas/crear/administrador.php');
     }
 }
+?>

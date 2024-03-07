@@ -40,6 +40,10 @@
               <label>Correo</label><br>
               <input class="input-registrar" type="email" id="correo" name="correo">
             </div>
+            <div class="content-label-input">
+              <label>Cantidad Compras</label><br>
+              <input class="input-registrar" type="number" id="cantidadCompra" name="cantidadCompra" value="0" disabled>
+            </div>
 
           </div>
           <div class="container-button">

@@ -8,6 +8,17 @@ if (isset($_POST['Registrar'])) {
     $precioVenta = $_POST['precioVenta'];
     $stockMinimo = $_POST['stockMinimo'];
 
+    $consulta_existe = "SELECT * FROM `producto` WHERE `nombre` = '$nombre'";
+    $resultado_existe = mysqli_query($conexion, $consulta_existe);
+    if (mysqli_num_rows($resultado_existe) > 0) {
+        $mss = "El nombre del producto ya está registrado";
+        echo "<script> 
+                alert('" . $mss . "');
+                window.history.back();
+             </script> ";
+        exit;
+    }
+
     $consulta = "INSERT INTO `producto`(`nombre`, `precioCompra`, `cantidad`, `precioVenta`,`stockMinimo`) 
     VALUES ('$nombre','$precioCompra','$cantidad','$precioVenta','$stockMinimo');";
 

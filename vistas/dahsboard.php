@@ -219,6 +219,13 @@
 
     <a class="content-link-menu" href="../vistas/listas/listProductos.php">
       <div class="content-icon-menu ">
+        <img class="icon-menu" src="../vistas/img/compras.png" alt="" />
+      </div>
+      <span class="text-menu">Compras</span>
+    </a>
+
+    <a class="content-link-menu" href="../vistas/listas/listProductos.php">
+      <div class="content-icon-menu ">
         <img class="icon-menu" src="../vistas/img/productos.png" alt="" />
       </div>
       <span class="text-menu">Productos</span>

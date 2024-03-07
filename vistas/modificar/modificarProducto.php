@@ -69,8 +69,44 @@ if (isset($_POST['Id_Producto'])) {
             </div>
           </div>
           <div class="container-button">
-            <div class="content-button">
-              <input class="general-button boton" name="guardarcambios" type="submit" value="Modificar" id="guardarcambios" />
+            <div className="content-button">
+              <a style="                       
+              text-decoration: none ;
+              height: 34px ;
+              padding: 9px 12px ;
+              border-radius:5px;
+              color: #ffffff ;
+              background-color: #0AA3E1 ;
+              border-top: 0px solid #dee2e6 ;
+              border-bottom: 0px solid #dee2e6 ;
+              border-left: 1px solid #dee2e6 ;
+              border-right: 0px solid #dee2e6 ;
+              " href="../listas/listProductos.php">Cancelar</a>
+
+              <input style="                       
+              text-decoration: none ;
+              height: 34px ;
+              padding: 10px 12px ;
+              border-radius:5px;
+              color: #ffffff ;
+              background-color: red ;
+              border-top: 0px solid #dee2e6 ;
+              border-bottom: 0px solid #dee2e6 ;
+              border-left: 1px solid #dee2e6 ;
+              border-right: 0px solid #dee2e6 ;" type="reset" value="Limpiar" />
+
+            
+              <input style="                       
+              text-decoration: none ;
+              height: 34px ;
+              padding: 10px 12px ;
+              border-radius:5px;
+              color: #ffffff ;
+              background-color: #41AF46 ;
+              border-top: 0px solid #dee2e6 ;
+              border-bottom: 0px solid #dee2e6 ;
+              border-left: 1px solid #dee2e6 ;
+              border-right: 0px solid #dee2e6 ;" type="submit" value="Modificar" id="guardarcambios" name="guardarcambios" />
             </div>
           </div>
         </form>

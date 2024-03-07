@@ -41,6 +41,7 @@ include('../../models/conexion.php');
                   <th class="th-style ">Telefono</th>
                   <th class="th-style ">Dirección</th>
                   <th class="th-style ">Correo</th>
+                  <th class="th-style ">Cantidad Compras</th>
                   <th class="th-style th-actions">Acciones</th>
                 </tr>
               </thead>
@@ -60,6 +61,7 @@ include('../../models/conexion.php');
                     <td class="td-style" label-item='Cantidad'><?php echo $filas['Telefono'] ?></td>
                     <td class="td-style" label-item='Direccion'><?php echo $filas['Direccion'] ?></td>
                     <td class="td-style" label-item='Correo'><?php echo $filas['Correo'] ?></td>
+                    <td class="td-style" label-item='cantidadCompra'><?php echo $filas['cantidadCompra'] ?></td>
                     <td class="td-style td-actions" label-item='Acciones'>
                       <form method="POST" action="../modificar/modificarProveedor.php">
                         <input type="hidden" name="Id_Proveedor" value="<?php echo $filas['Id_Proveedor']; ?>">
