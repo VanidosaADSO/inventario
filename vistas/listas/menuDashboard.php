@@ -82,7 +82,7 @@
       <span class="text-menu">Proveedores</span>
     </a>
 
-    <a class="content-link-menu" href="../listas/listProductos.php">
+    <a class="content-link-menu" href="../listas/listCompras.php">
       <div class="content-icon-menu ">
         <img class="icon-menu" src="../img/compras.png" alt="" />
       </div>

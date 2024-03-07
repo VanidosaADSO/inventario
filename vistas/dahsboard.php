@@ -217,7 +217,7 @@
       <span class="text-menu">Proveedores</span>
     </a>
 
-    <a class="content-link-menu" href="../vistas/listas/listProductos.php">
+    <a class="content-link-menu" href="../vistas/listas/listCompras.php">
       <div class="content-icon-menu ">
         <img class="icon-menu" src="../vistas/img/compras.png" alt="" />
       </div>
