@@ -18,12 +18,12 @@
     <div class="contenedor">
       <h1 class="title">REGISTRAR COMPRA</h1>
       <div>
-        <form onsubmit="return validarCompra()" action="../../controller/registrar/registrarVenta.php" method="post">
+        <form onsubmit="return validarCompra()" action="../../controller/registrar/registrarCompra.php" method="post">
           <div class="container-fields">
 
             <div class="content-label-input">
               <label>Fecha:</label><br>
-              <input class="input-registrar" type="date" id="fecha" name="fecha">
+              <input class="input-registrar" type="date" id="fecha" name="fecha" max="<?php echo date('Y-m-d'); ?>" min="<?php echo date('Y-m-d', strtotime('-3 days')); ?>">
             </div>
 
             <div class="content-label-input">
@@ -134,7 +134,7 @@
 
   </div>
 
-
+  <script src="../../controller/js/validarCompra.js"></script>
 
 </body>
 

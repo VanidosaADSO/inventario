@@ -27,7 +27,7 @@
 
             <div class="content-label-input">
               <label>Fecha:</label><br>
-              <input class="input-registrar" type="date" id="fecha" name="fecha">
+              <input class="input-registrar" type="date" id="fecha" name="fecha" max="<?php echo date('Y-m-d'); ?>" min="<?php echo date('Y-m-d', strtotime('-3 days')); ?>">
             </div>
 
             <div class="content-label-input">
