@@ -36,12 +36,9 @@
               <input class="input-registrar" type="number" id="totalFactura" name="totalFactura">
             </div>
 
-
-
-
-
-
           </div>
+
+          
 
           <?php include '../crear/modalCompra.php'; ?>
           <div class="container-button">
@@ -57,19 +54,15 @@
                 border: 0px solid #dee2e6;
             " type="button">Agregar Producto</button>
             </div>
-            <!-- Agrega un event listener al botón "Agregar Producto" -->
+         
             <script>
-              document.addEventListener('DOMContentLoaded', function() {
-                // Manejar el evento de clic del botón "Agregar Producto" para abrir la ventana modal
-                document.getElementById('openModalBtn').addEventListener('click', function() {
-                  // Mostrar la ventana modal
+              document.addEventListener('DOMContentLoaded', function() {            
+                document.getElementById('openModalBtn').addEventListener('click', function() {            
                   document.getElementById('myModalCompra').style.display = 'block';
                 });
-
-                // Manejar el evento de clic para cerrar la ventana modal
+            
                 var closeModalBtn = document.querySelector('#myModalCompra .close-button');
-                closeModalBtn.addEventListener('click', function() {
-                  // Ocultar la ventana modal
+                closeModalBtn.addEventListener('click', function() {             
                   document.getElementById('myModalCompra').style.display = 'none';
                 });
               });
@@ -135,6 +128,7 @@
   </div>
 
   <script src="../../controller/js/validarCompra.js"></script>
+  <script src="../crear/modalCompra.php"></script>
 
 </body>
 

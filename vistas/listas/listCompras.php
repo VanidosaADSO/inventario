@@ -59,7 +59,7 @@ include('../../models/conexion.php');
                     </td>
                     <td class="td-style" label-item='Fecha'><?php echo $filas['Fecha'] ?></td>
                     <td class="td-style" label-item='Productos'><?php echo $filas['Productos'] ?></td>
-                    <td class="td-style" label-item='Total '><?php echo $filas['Total'] ?></td>
+                    <td class="td-style" label-item='Total '><?php echo number_format($filas['Total'], 0, '.', ',') ?></td>
                     <td class="td-style td-actions" label-item='Acciones'>
                       <form method="POST" action="../vistas/modificarUsuario.php">
                         <input type="hidden" name="Id_Compra" value="<?php echo $filas['Id_Compra']; ?>">
@@ -68,10 +68,10 @@ include('../../models/conexion.php');
                         </button>
                       </form>
 
-                      <!-- <a href="../../controller/eliminar/?Id_Usuario=<?php echo $filas['Id_Compra']; ?>">
+                      <a href="../../controller/eliminar/eliminarCompra.php?Id_Compra=<?php echo $filas['Id_Compra']; ?>">
                         <img 
                            class="icon-menu" src="../img/eliminar.png" alt="Eliminar usuario">
-                      </a> -->
+                      </a>
                     </td>
                   </tr>
                 <?php
