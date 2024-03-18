@@ -3,18 +3,24 @@ include("../../models/conexion.php");
 
 if (isset($_POST['Registrar'])) {
 
-    
+
     $fecha = $_POST['fecha'];
     $proveedor = $_POST['proveedor'];
     $totalFactura = $_POST['totalFactura'];
 
-    $productos = json_encode($_POST['productos']);
 
+    $productosJson = $_POST['productosJson'];
+    $productos = json_decode($productosJson, true);
 
+    $productosJsonArray = json_encode($productos);
+
+    // Preparar la consulta
     $consulta = "INSERT INTO `compra`(`Fecha`, `Proveedor`, `Total`, `Productos`) 
-    VALUES ('$fecha','$proveedor','$totalFactura','$productos');";
+    VALUES (?, ?, ?, ?);";
+    $stmt = mysqli_prepare($conexion, $consulta);
+    mysqli_stmt_bind_param($stmt, 'ssss', $fecha, $proveedor, $totalFactura, $productosJsonArray);
 
-    $resultado = mysqli_query($conexion, $consulta);
+    $resultado = mysqli_stmt_execute($stmt);
 
     if ($resultado) {
         $mss = "Guardado correctamente";
@@ -25,7 +31,5 @@ if (isset($_POST['Registrar'])) {
     } else {
         $mss = "Error al guardar";
         echo "<script> alert('" . $mss . "');</script> ";
-
     }
 }
-?>

@@ -135,6 +135,9 @@
     calcularTotales();
     limpiarCampos();
 
+     var productosJson = JSON.stringify(productos);
+    document.getElementById('productosJson').value = productosJson;
+
   }
 
   function mostrarProductos() {

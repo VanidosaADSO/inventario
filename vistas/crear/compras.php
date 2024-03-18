@@ -33,8 +33,11 @@
 
             <div class="content-label-input">
               <label>Total Factura:</label><br>
-              <input class="input-registrar" type="number" id="totalFactura" name="totalFactura">
+              <input class="input-registrar" type="number" id="totalFactura" name="totalFactura" readonly>
             </div>
+
+            <input type="hidden" id="productosJson" name="productosJson">
+
 
           </div>
 
