@@ -2,27 +2,25 @@
 include("../../models/conexion.php");
 
 if (isset($_POST['Registrar'])) {
-
-
     $fecha = $_POST['fecha'];
     $proveedor = $_POST['proveedor'];
     $totalFactura = $_POST['totalFactura'];
-
-
     $productosJson = $_POST['productosJson'];
     $productos = json_decode($productosJson, true);
-
     $productosJsonArray = json_encode($productos);
 
-    // Preparar la consulta
-    $consulta = "INSERT INTO `compra`(`Fecha`, `Proveedor`, `Total`, `Productos`) 
-    VALUES (?, ?, ?, ?);";
-    $stmt = mysqli_prepare($conexion, $consulta);
-    mysqli_stmt_bind_param($stmt, 'ssss', $fecha, $proveedor, $totalFactura, $productosJsonArray);
+    $consultaCompra = "INSERT INTO `compra`(`Fecha`, `Proveedor`, `Total`, `Productos`) VALUES (?, ?, ?, ?);";
+    $stmtCompra = mysqli_prepare($conexion, $consultaCompra);
+    mysqli_stmt_bind_param($stmtCompra, 'ssss', $fecha, $proveedor, $totalFactura, $productosJsonArray);
 
-    $resultado = mysqli_stmt_execute($stmt);
+    $resultadoCompra = mysqli_stmt_execute($stmtCompra);
 
-    if ($resultado) {
+    if ($resultadoCompra) {
+        $consultaUpdateProveedor = "UPDATE `proveedor` SET `cantidadCompra` = `cantidadCompra` + 1 WHERE `Nombre` = ?";
+        $stmtUpdateProveedor = mysqli_prepare($conexion, $consultaUpdateProveedor);
+        mysqli_stmt_bind_param($stmtUpdateProveedor, 's', $proveedor);
+        mysqli_stmt_execute($stmtUpdateProveedor);
+
         $mss = "Guardado correctamente";
         echo "<script> alert('" . $mss . "');
         window.location.href = '../../vistas/listas/listCompras.php';
@@ -33,3 +31,4 @@ if (isset($_POST['Registrar'])) {
         echo "<script> alert('" . $mss . "');</script> ";
     }
 }
+

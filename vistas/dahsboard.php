@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php
+session_start();
+if (!isset($_SESSION['documento']) || empty($_SESSION['documento'])) {
+  header('Location: index.php');
+    // include("../index.php");
+    exit;
+}
 
+?>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">

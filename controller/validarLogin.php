@@ -19,6 +19,7 @@ if (isset($_POST['ingresar'])) {
         $_SESSION['Nombre'] = $usuario['Nombre'];
         $_SESSION['Correo'] = $usuario['Correo'];
         $_SESSION['imagen'] = $usuario['imagen'];
+        $_SESSION['Id_Usuario'] = $usuario['Id_Usuario'];
 
         include("../vistas/dahsboard.php");
     } else {

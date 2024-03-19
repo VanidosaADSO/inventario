@@ -1,5 +1,14 @@
 <?php
 include('../../models/conexion.php');
+$registros_por_pagina = 5;
+$pagina_actual = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
+$inicio = ($pagina_actual - 1) * $registros_por_pagina;
+$total_registros_query = "SELECT COUNT(*) as total FROM usuario";
+$total_registros_result = mysqli_query($conexion, $total_registros_query);
+$total_registros = mysqli_fetch_assoc($total_registros_result)['total'];
+$total_paginas = ceil($total_registros / $registros_por_pagina);
+$sql = "SELECT * FROM proveedor LIMIT $inicio, $registros_por_pagina";
+$resultado = mysqli_query($conexion, $sql);
 ?>
 
 
@@ -89,29 +98,13 @@ include('../../models/conexion.php');
           <div class="container-pagination-report">
             <div class="container-pagination">
               <div class="content-pagination">
-
-                <button class="item-pagination" type="button">
-                  Anterior
-                </button>
-
-
-                <button type="button">
-                  {pageNumber}
-
-
-
-                  <button class="item-pagination" type="button">
-                    Siguiente
-                  </button>
-
-                  <button class="item-pagination" type="button">
-                    <img class="arrow-right-icon" src={last} alt="" />
-                  </button>
-
+                <a href="?pagina=1" class="item-pagination">&laquo;</a>
+                <?php for ($i = 1; $i <= $total_paginas; $i++) { ?>
+                  <a href="?pagina=<?php echo $i; ?>" class="item-pagination <?php if ($pagina_actual == $i) echo 'active'; ?>"><?php echo $i; ?></a>
+                <?php } ?>
+                <a href="?pagina=<?php echo $total_paginas; ?>" class="item-pagination">&raquo;</a>
               </div>
             </div>
-
-
           </div>
 
         </div>

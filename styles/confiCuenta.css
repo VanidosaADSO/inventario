@@ -1,0 +1,96 @@
+body {
+  margin: 0;
+  overflow-y: hidden;
+}
+
+.content-confi {
+  background-color: #f1f1f1;
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  padding-top: 50px;
+}
+
+
+.contenedor-confi {
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+
+}
+
+.title-confi {
+  text-align: center;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-size: 34px;
+  padding-top: 10px;
+}
+
+
+.container-confi {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  background-color: #c4c4c4;
+  border: 1.5px solid #e9e9e9;
+  border-radius: 10px;
+  padding: 26px 20px 24px;
+  width: 75%;
+  margin-left: 150px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.281);
+}
+
+.content-label-input-confi {
+  margin-bottom: 12px;
+}
+
+.input-registrar {
+  color: rgb(109, 84, 84);
+  border: none;
+  border-bottom: 1px solid #c0c0c0;
+  width: 90%;
+  outline: none;
+  line-height: 35px;
+  margin: 5px 0px 5px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.178);
+}
+
+
+.container-button {
+  display: flex;
+  justify-content: center;
+  margin-top: 25px;
+}
+
+.content-button {
+  display: flex;
+  justify-content: space-between;
+}
+
+.button-cancelar-confi {
+  text-decoration: none;
+  height: 34px;
+  padding: 9px 12px;
+  border-radius: 5px;
+  color: #ffffff;
+  background-color: #0AA3E1;
+  border-top: 0px solid #dee2e6;
+  border-bottom: 0px solid #dee2e6;
+  border-left: 1px solid #dee2e6;
+  border-right: 0px solid #dee2e6;
+}
+
+.general-button-confi {
+  height: 36px;
+  font-size: 14;
+  border: none;
+  color: #000000;
+  background-color: #41AF46;
+  color: #ffffff;
+  border-radius: 5px;
+}
+
+.boton:hover {
+  background-color: #228627;
+}

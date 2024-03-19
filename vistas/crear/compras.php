@@ -11,7 +11,12 @@
 
 <body>
 
-  <?php include('../listas/menuDashboard.php'); ?>
+  <?php include('../listas/menuDashboard.php');
+
+  include('../../models/conexion.php');
+  $query = "SELECT Nombre FROM proveedor";
+  $resultado = mysqli_query($conexion, $query);
+  ?>
 
 
   <div class="hola">
@@ -28,7 +33,12 @@
 
             <div class="content-label-input">
               <label>Proveedor:</label><br>
-              <input class="input-registrar" type="text" id="proveedor" name="proveedor">
+              <input class="input-registrar" list="lista-proveedores" id="proveedor" name="proveedor" oninput="buscarProveedor(this.value)">
+              <datalist id="lista-proveedores">
+                <?php while ($fila = mysqli_fetch_assoc($resultado)) : ?>
+                  <option value="<?php echo htmlspecialchars($fila['Nombre']); ?>">
+                  <?php endwhile; ?>
+              </datalist>
             </div>
 
             <div class="content-label-input">
@@ -41,7 +51,7 @@
 
           </div>
 
-          
+
 
           <?php include '../crear/modalCompra.php'; ?>
           <div class="container-button">
@@ -57,15 +67,15 @@
                 border: 0px solid #dee2e6;
             " type="button">Agregar Producto</button>
             </div>
-         
+
             <script>
-              document.addEventListener('DOMContentLoaded', function() {            
-                document.getElementById('openModalBtn').addEventListener('click', function() {            
+              document.addEventListener('DOMContentLoaded', function() {
+                document.getElementById('openModalBtn').addEventListener('click', function() {
                   document.getElementById('myModalCompra').style.display = 'block';
                 });
-            
+
                 var closeModalBtn = document.querySelector('#myModalCompra .close-button');
-                closeModalBtn.addEventListener('click', function() {             
+                closeModalBtn.addEventListener('click', function() {
                   document.getElementById('myModalCompra').style.display = 'none';
                 });
               });
@@ -73,7 +83,7 @@
 
           </div>
 
-          
+
 
 
 

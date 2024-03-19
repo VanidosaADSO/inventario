@@ -1,5 +1,14 @@
 <link rel="stylesheet" href="../../styles/menu.css">
 
+<?php
+session_start();
+if (!isset($_SESSION['documento']) || empty($_SESSION['documento'])) {
+  header('Location: ../index.php');
+    // include("../index.php");
+    exit;
+}
+
+?>
 <header class="header">
 
   <div>

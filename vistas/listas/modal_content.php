@@ -34,7 +34,7 @@ if (isset($_SESSION['Nombre']) && isset($_SESSION['Correo']) && isset($_SESSION[
       <div class="container-item-modal-account">
         <div class="content-item-modal-account">
           <img class="modal-account-icon" src="{settings}" alt="" />
-          <a class="modal-account-link" href="/EditAccount">Configurar mi cuenta</a>
+          <a class="modal-account-link" href="../confiCuenta.php">Configurar mi cuenta</a>
         </div>
       </div>
 
