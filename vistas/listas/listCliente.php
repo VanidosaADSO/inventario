@@ -1,6 +1,6 @@
 <?php
 include('../../models/conexion.php');
-$registros_por_pagina = 5;
+$registros_por_pagina = 1;
 $pagina_actual = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
 $inicio = ($pagina_actual - 1) * $registros_por_pagina;
 $total_registros_query = "SELECT COUNT(*) as total FROM usuario";

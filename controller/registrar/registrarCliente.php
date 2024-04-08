@@ -26,7 +26,7 @@ if (isset($_POST['Registrar'])) {
     if ($resultado) {
         $mss = "Guardado correctamente";
         echo "<script> alert('" . $mss . "');
-        window.location.href = '../vistas/listas/listCliente.php';
+        window.location.href = '../../vistas/listas/listCliente.php';
         </script> ";
         exit;
     } else {

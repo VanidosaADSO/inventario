@@ -82,11 +82,6 @@
               border-left: 1px solid #dee2e6 ;
               border-right: 0px solid #dee2e6 ;" type="reset" value="Limpiar" />
 
-              <!-- <button 
-              id="btnRegistrar"
-              class="general-button boton">
-                Registrar
-              </button> -->
               <input style="                       
               text-decoration: none ;
               height: 34px ;
