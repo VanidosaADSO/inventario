@@ -1,6 +1,8 @@
 <?php
 include('../models/conexion.php');
 
+
+// ------------------------------------------------------------------------------
 // Consulta para hacer la grafica del total de ventas mes a mes
 $query = "SELECT MONTH(Fecha) AS Mes, SUM(PrecioTotalVenta) AS TotalVentas 
             FROM venta 
@@ -18,6 +20,38 @@ while ($fila = mysqli_fetch_assoc($resultado)) {
 $meses = array_keys($datos_grafica);
 $ventas = array_values($datos_grafica);
 
+
+// ------------------------------------------------------------------------------
+// Consulta para hacer la grafica pare ver los productos mas vendidos en el mes
+$sql = "SELECT JSON_UNQUOTE(JSON_EXTRACT(Productos, '$[*].nombre')) AS nombre_producto, 
+JSON_UNQUOTE(JSON_EXTRACT(Productos, '$[*].cantidad')) AS cantidad
+FROM venta";
+
+$resultado = $conexion->query($sql);
+
+$productos_mas_vendidos = array();
+
+if ($resultado->num_rows > 0) {
+  while ($fila = $resultado->fetch_assoc()) {
+    $productos = json_decode($fila['nombre_producto']);
+    $cantidades = json_decode($fila['cantidad']);
+
+    foreach ($productos as $key => $producto) {
+      $cantidad = $cantidades[$key];
+
+      if (array_key_exists($producto, $productos_mas_vendidos)) {
+        $productos_mas_vendidos[$producto] += $cantidad;
+      } else {
+        $productos_mas_vendidos[$producto] = $cantidad;
+      }
+    }
+  }
+}
+
+arsort($productos_mas_vendidos);
+$productos_mas_vendidos = array_slice($productos_mas_vendidos, 0, 5, true);
+
+// ------------------------------------------------------------------------------
 // Consulta para hacer la grafica de los clientes con mas compras
 $query = "SELECT Nombre, compras
             FROM cliente
@@ -41,6 +75,8 @@ foreach ($comprasClientes as $compras) {
   $porcentajesCompras[] = round($porcentaje, 2);
 }
 
+
+// ------------------------------------------------------------------------------
 // Consulta para obtener los productos que están llegando al stock mínimo
 $queryStockMinimo = "SELECT Nombre, Cantidad, StockMinimo 
                      FROM producto 
@@ -72,20 +108,25 @@ if ($resultado_valores) {
   $gananciasEstimadas = 0;
 }
 
-$conn = $conexion; // Assigning the database connection object to $conn
-$sql = "SELECT MONTH(Fecha) AS Mes, COUNT(*) AS TotalVentas  FROM venta GROUP BY MONTH(Fecha)";
+
+// -------------------------------------------------------------------------------------------------------
+// Consulta para saber cuantas ventas se hicieron en un mes
+$conn = $conexion;
+$sql = "SELECT MONTH(Fecha) AS Mes, COUNT(*) AS TotalVentas FROM venta GROUP BY MONTH(Fecha)";
 
 $result = $conn->query($sql);
-$comprasMensuales = [];
+$ventasMensuales = [];
 if ($result->num_rows > 0) {
-  // Output de datos de cada fila
+  // Almacenar los datos de cada fila en $ventasMensuales
   while ($row = $result->fetch_assoc()) {
-    $comprasMensuales[$row["Mes"]] = $row["TotalVentas "];
+    $ventasMensuales[$row["Mes"]] = $row["TotalVentas"];
   }
 }
 
+
+// -------------------------------------------------------------------------------------------------------
 // Consulta para saber cuanto se a generado durante el mes
-$conn = $conexion; 
+$conn = $conexion;
 
 $sql = "SELECT MONTH(Fecha) AS Mes, SUM(PrecioTotalVenta) AS TotalVentas 
         FROM venta 
@@ -95,10 +136,9 @@ $sql = "SELECT MONTH(Fecha) AS Mes, SUM(PrecioTotalVenta) AS TotalVentas
 $result = $conn->query($sql);
 $gananciasMensuales = [];
 if ($result->num_rows > 0) {
-  // Recorrer los resultados de la consulta y almacenar los totales de ventas por mes
+
   while ($row = $result->fetch_assoc()) {
     $gananciasMensuales[$row["Mes"]] = $row["TotalVentas"];
   }
 }
 mysqli_close($conexion);
-?>

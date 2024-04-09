@@ -49,6 +49,7 @@ $resultado = mysqli_query($conexion, $sql);
                   <th class="th-style ">ID</th>
                   <th class="th-style">Fecha</th>
                   <th class="th-style ">Productos</th>
+                  <th class="th-style ">Proveedor</th>
                   <th class="th-style ">Precio Total</th>
 
                   <th class="th-style th-actions">Acciones</th>
@@ -67,6 +68,7 @@ $resultado = mysqli_query($conexion, $sql);
                     </td>
                     <td class="td-style" label-item='Fecha'><?php echo $filas['Fecha'] ?></td>
                     <td class="td-style" label-item='Productos'><?php echo $filas['Productos'] ?></td>
+                    <td class="td-style" label-item='Productos'><?php echo $filas['Proveedor'] ?></td>
                     <td class="td-style" label-item='Total '><?php echo number_format($filas['Total'], 0, '.', ',') ?></td>
                     <td class="td-style td-actions" label-item='Acciones'>
                       <form method="POST" action="../vistas/modificarUsuario.php">

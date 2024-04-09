@@ -150,7 +150,7 @@ display: flex;
 }
 
 .text-ventas {
-  font-size: 20px;
+  font-size: 15px;
 }
 
 .mensuales .text-ventas,
@@ -160,7 +160,7 @@ display: flex;
 }
 
 .range {
-  width: 400px;
+  width: 250px;
   margin: 0px 10px 0px 10px;
 }
 
@@ -220,10 +220,6 @@ display: flex;
   }
 
 
-  .range {
-    width: 350px;
-    margin: 0px 10px 0px 10px;
-  }
 
   .contenedor-1,
   .contenedor-2,
@@ -321,10 +317,6 @@ display: flex;
   }
 
 
-  .range {
-    width: 350px;
-    margin: 0px 10px 0px 10px;
-  }
 
   .contenedor-1,
   .contenedor-2,
@@ -354,12 +346,6 @@ display: flex;
   
     .text-ventas {
       font-size: 12px;
-    }
-  
-  
-    .range {
-      width: 300px;
-      margin: 0px 8px 0px 8px;
     }
   
     .contenedor-1,
@@ -393,11 +379,6 @@ display: flex;
 
   .text-ventas {
     font-size: 15px;
-  }
-
-  .range {
-    width: 350px;
-    margin: 0px 10px 0px 10px;
   }
 
   /* Los estilos de los contenedores específicos se mantienen igual */

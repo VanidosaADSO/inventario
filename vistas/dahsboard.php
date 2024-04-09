@@ -10,7 +10,7 @@ include('../controller/modificar/consulta.php');
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../styles/dashboard.css">
   <style>
-    #grafico {
+    #grafico, #graficaProductosvendidos {
       width: 500px !important;
       height: 350px !important;
     }
@@ -112,18 +112,20 @@ include('../controller/modificar/consulta.php');
 
     <div class="contenedor-valores">
       <div class="mensuales">
-        <p class="text-ventas">Ventas mensuales:<?php foreach ($comprasMensuales as $mes => $cantidad) { ?>
-          <?php echo $cantidad; ?>
-        <?php } ?></p>
+        <p class="text-ventas">Ventas mensuales:
+          <?php foreach ($ventasMensuales as $mes => $ventasMensuales) { ?>
+            <?php echo number_format($ventasMensuales, 0, '', ','); ?>
+          <?php } ?>
+        </p>
         <input type="range" class="range" id="rango" name="rango" value="Precio" min="15000" max="450000" />
         <p class="text-ventas">Ventas estimadas: <?php echo number_format($ventasEstimadas, 0, '', ','); ?></p>
       </div>
 
       <div class="mensuales">
-        <p class="text-ventas">Ganancias mensuales:<?php foreach ($gananciasMensuales as $mes => $ganancias) { ?>
-        <?php echo $ganancias ?>
+        <p class="text-ventas">Ganancias mensuales:<?php foreach ($gananciasMensuales as $mes => $gananciasMensuales) { ?>
+          <?php echo number_format($gananciasMensuales, 0, '', ','); ?>
         <?php } ?>
-      </p>
+        </p>
         <input type="range" class="range" id="rango" name="rango" value="Precio" min="15000" max="450000" />
         <p class="text-ventas">Ganacias estimadas: <?php echo number_format($gananciasEstimadas, 0, '', ','); ?>$</p>
       </div>
@@ -154,10 +156,6 @@ include('../controller/modificar/consulta.php');
               y: {
                 beginAtZero: true,
                 min: 0,
-                max: 400,
-                ticks: {
-                  stepSize: 50
-                }
               }
             }
           }
@@ -166,7 +164,34 @@ include('../controller/modificar/consulta.php');
     </div>
 
     <div class="contenedor-2">
-      <h1>contendor 2</h1>
+      <canvas id="graficaProductosvendidos"></canvas>
+      <script>
+        var ctx = document.getElementById('graficaProductosvendidos').getContext('2d');
+
+        var productos = <?php echo json_encode(array_keys($productos_mas_vendidos)); ?>;
+        var cantidades = <?php echo json_encode(array_values($productos_mas_vendidos)); ?>;
+
+        var grafica = new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: productos,
+            datasets: [{
+              label: 'Cantidad vendida',
+              data: cantidades,
+              backgroundColor: 'rgba(54, 162, 235, 0.5)',
+              borderColor: 'rgba(54, 162, 235, 1)',
+              borderWidth: 1
+            }]
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true
+              }
+            }
+          }
+        });
+      </script>
     </div>
 
     <div class="contenedor-3">

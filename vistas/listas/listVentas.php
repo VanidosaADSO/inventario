@@ -48,9 +48,6 @@ $resultado = mysqli_query($conexion, $sql);
                 <tr>
                   <th class="th-style ">ID</th>
                   <th class="th-style">Productos</th>
-                  <th class="th-style ">Cantidad</th>
-                  <th class="th-style ">Precio Unidad</th>
-                  <th class="th-style ">Precio Total</th>
                   <th class="th-style ">Precio Venta</th>
                   <th class="th-style ">Fecha</th>
                   <th class="th-style ">Cliente</th>
@@ -59,39 +56,38 @@ $resultado = mysqli_query($conexion, $sql);
               </thead>
               <tbody>
                 <?php
-                $sql = "SELECT * FROM venta";
-                $resultado = mysqli_query($conexion, $sql);
-
-                while ($filas = mysqli_fetch_array($resultado)) {
+               while ($filas = mysqli_fetch_array($resultado)) {
+                $Id_Cliente = $filas['Id_Cliente'];
+                $sql_cliente = "SELECT Nombre FROM cliente WHERE Id_Cliente = $Id_Cliente";
+                $resultado_cliente = mysqli_query($conexion, $sql_cliente);
+            
+                if ($resultado_cliente && mysqli_num_rows($resultado_cliente) > 0) {
+                    $cliente = mysqli_fetch_assoc($resultado_cliente);
+                    $nombreCliente = $cliente['Nombre'];
+                } else {
+                    $nombreCliente = 'Cliente no encontrado';
+                }
                 ?>
-                  <tr>
+                <tr>
                     <td class="td-style" label-item='Id'>
-                      <?php echo $filas['Id_Venta'] ?>
+                        <?php echo $filas['Id_Venta'] ?>
                     </td>
                     <td class="td-style" label-item='Productos'><?php echo $filas['Productos'] ?></td>
-                    <td class="td-style" label-item='Cantidad'><?php echo $filas['Cantidad'] ?></td>
-                    <td class="td-style" label-item='Precio Unidad'><?php echo $filas['PrecioUnidad'] ?></td>
-                    <td class="td-style" label-item='Precio Total'><?php echo $filas['PrecioTotal'] ?></td>
                     <td class="td-style" label-item='Precio Venta'><?php echo $filas['PrecioTotalVenta'] ?></td>
                     <td class="td-style" label-item='Fecha'><?php echo $filas['Fecha'] ?></td>
-                    <td class="td-style" label-item='Cliente'><?php echo $filas['Id_Cliente'] ?></td>
+                    <td class="td-style" label-item='Cliente'><?php echo $nombreCliente ?></td>
                     <td class="td-style td-actions" label-item='Acciones'>
-                      <form method="POST" action="../vistas/modificarUsuario.php">
-                        <input type="hidden" name="Id_Venta" value="<?php echo $filas['Id_Venta']; ?>">
-                        <button style="border: none;" type="submit">
-                          <img class="icon-menu" src="../img/edit.svg" alt="Edit" />
-                        </button>
-                      </form>
-
-                      <!-- <a href="../../controller/eliminar/?Id_Usuario=<?php echo $filas['Id_Usuario']; ?>">
-                        <img 
-                           class="icon-menu" src="../img/eliminar.png" alt="Eliminar usuario">
-                      </a> -->
+                        <form method="POST" action="../vistas/modificarUsuario.php">
+                            <input type="hidden" name="Id_Venta" value="<?php echo $filas['Id_Venta']; ?>">
+                            <button style="border: none;" type="submit">
+                                <img class="icon-menu" src="../img/edit.svg" alt="Edit" />
+                            </button>
+                        </form>
                     </td>
-                  </tr>
+                </tr>
                 <?php
-
-                }
+            }
+            
                 ?>
               </tbody>
             </table>

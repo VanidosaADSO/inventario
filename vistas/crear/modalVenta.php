@@ -23,12 +23,25 @@
   }
 </style>
 
+<?php
+
+include('../../models/conexion.php');
+$query = "SELECT Nombre FROM producto WHERE cantidad > 0";
+$resultado = mysqli_query($conexion, $query);
+
+?>
+
 <div id="myModalCompra" class="modal" style="display: none;">
   <div class="container-modalCompra">
     <div class="container-compras">
       <div class="content-label-input">
         <label>Producto:</label><br>
-        <input class="input-registrar" type="text" id="productos" name="productos">
+        <input class="input-registrar" list="lista-productos" id="productos" name="productos" oninput="buscarProducto(this.value)">
+        <datalist id="lista-productos">
+          <?php while ($fila = mysqli_fetch_assoc($resultado)) : ?>
+            <option value="<?php echo htmlspecialchars($fila['Nombre']); ?>">
+            <?php endwhile; ?>
+        </datalist>
       </div>
 
       <div class="content-label-input">
@@ -38,20 +51,13 @@
 
       <div class="content-label-input">
         <label>Precio unidad:</label><br>
-        <input class="input-registrar" type="number" id="precioUnidad" name="precioUnidad" oninput="calcularPrecioVenta()">
+        <input class="input-registrar" type="number" id="precioUnidad" name="precioUnidad" onchange="calcularPrecioProducto()">
       </div>
 
       <div class="content-label-input">
-        <label>Precio venta:</label><br>
-        <input class="input-registrar" type="number" id="precioVenta" name="precioVenta">
+        <label>Precio Total:</label><br>
+        <input class="input-registrar" type="number" id="precioTotal" name="precioTotal" readonly>
       </div>
-
-      <div class="content-label-input">
-        <label>Stock Minimo:</label><br>
-        <input class="input-registrar" type="number" id="stockMinimo" name="stockMinimo">
-      </div>
-
-
 
       <div class="container-button">
         <div class="content-button">
@@ -90,8 +96,7 @@
               <th class="th-style text-center">Producto</th>
               <th class="th-style text-center">Cantidad</th>
               <th class="th-style text-center">Precio U</th>
-              <th class="th-style text-center">Precio Venta</th>
-              <th class="th-style text-center">Stock Minimo</th>
+              <th class="th-style text-center">Precio Total</th>
               <th class="th-style text-center">Acciones</th>
             </tr>
           </thead>
@@ -105,41 +110,36 @@
 
 <script src="../../controller/js/validarCompra.js"></script>
 <script>
-  function calcularPrecioVenta() {
-    var precioUnidad = parseFloat(document.getElementById('precioUnidad').value);
-    var precioVenta = precioUnidad * 1.3; // Agrega el 30%
-    document.getElementById('precioVenta').value = precioVenta.toFixed(0);
-  }
-
   var productos = [];
 
   function agregarProducto() {
     var nombre = document.getElementById('productos').value;
     var cantidad = document.getElementById('cantidad').value;
     var precioUnidad = document.getElementById('precioUnidad').value;
-    var precioVenta = document.getElementById('precioVenta').value;
-    var stockMinimo = document.getElementById('stockMinimo').value;
+    var precioTotal = document.getElementById('precioTotal').value;
+    if (precioUnidad.length > 0) {
 
-    if (nombre === '' || cantidad === '' || precioUnidad === '' || precioVenta === '' ||
-      stockMinimo === '') {
+      var PrecioTotalProducto = precioUnidad * cantidad;
+
+      document.getElementById('precioTotal').value = PrecioTotalProducto;
+
+    }
+
+    if (nombre === '' || cantidad === '' || precioUnidad === '' || precioTotal === '') {
       alert('Por favor, complete todos los campos de producto requeridos.');
       return false;
     }
-
-
-
     var producto = {
       nombre: document.getElementById('productos').value,
       cantidad: parseInt(document.getElementById('cantidad').value),
       precioUnidad: parseFloat(document.getElementById('precioUnidad').value),
-      precioVenta: parseFloat(document.getElementById('precioVenta').value),
-      stockMinimo: parseFloat(document.getElementById('stockMinimo').value)
+      precioTotal: parseFloat(document.getElementById('precioTotal').value)
     };
 
     productos.push(producto);
     mostrarProductos();
-    calcularTotales();
     limpiarCampos();
+    calcularTotales();
 
     var productosJson = JSON.stringify(productos);
     document.getElementById('productosJson').value = productosJson;
@@ -169,13 +169,9 @@
       precioUnidadTd.textContent = producto.precioUnidad;
       tr.appendChild(precioUnidadTd);
 
-      var precioVentaTd = document.createElement('td');
-      precioVentaTd.textContent = producto.precioVenta;
-      tr.appendChild(precioVentaTd);
-
-      var stockMinimoTd = document.createElement('td');
-      stockMinimoTd.textContent = producto.stockMinimo;
-      tr.appendChild(stockMinimoTd);
+      var precioTotalTd = document.createElement('td');
+      precioTotalTd.textContent = producto.precioTotal;
+      tr.appendChild(precioTotalTd);
 
       var accionesTd = document.createElement('td');
       var eliminarButton = document.createElement('button');
@@ -195,15 +191,13 @@
     productos.splice(index, 1);
     mostrarProductos();
     calcularTotales();
-
   }
 
   function limpiarCampos() {
     document.getElementById('productos').value = '';
     document.getElementById('cantidad').value = '';
     document.getElementById('precioUnidad').value = '';
-    document.getElementById('precioVenta').value = '';
-    document.getElementById('stockMinimo').value = '';
+    document.getElementById('precioTotal').value = '';
   }
 
   function calcularTotales() {
@@ -214,5 +208,15 @@
     });
 
     document.getElementById('totalFactura').value = totalFactura;
+  }
+
+  function calcularPrecioProducto() {
+    var cantidad = document.getElementById('cantidad').value;
+    var precioUnidad = document.getElementById('precioUnidad').value;
+
+    if (precioUnidad.length > 0) {
+      var precioTotalProducto = precioUnidad * cantidad;
+      document.getElementById('precioTotal').value = precioTotalProducto;
+    }
   }
 </script>
