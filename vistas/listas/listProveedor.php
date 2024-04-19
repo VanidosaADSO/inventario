@@ -3,11 +3,16 @@ include('../../models/conexion.php');
 $registros_por_pagina = 5;
 $pagina_actual = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
 $inicio = ($pagina_actual - 1) * $registros_por_pagina;
-$total_registros_query = "SELECT COUNT(*) as total FROM usuario";
+$total_registros_query = "SELECT COUNT(*) as total FROM proveedor";
 $total_registros_result = mysqli_query($conexion, $total_registros_query);
 $total_registros = mysqli_fetch_assoc($total_registros_result)['total'];
 $total_paginas = ceil($total_registros / $registros_por_pagina);
-$sql = "SELECT * FROM proveedor LIMIT $inicio, $registros_por_pagina";
+
+// Obtener el valor de búsqueda por cualquier campo
+$busqueda_general = isset($_GET['buscar']) ? $_GET['buscar'] : '';
+$sql = "SELECT * FROM proveedor 
+        WHERE Nombre LIKE '%$busqueda_general%' OR Telefono LIKE '%$busqueda_general%' OR Direccion LIKE '%$busqueda_general%' OR Correo LIKE '%$busqueda_general%' OR cantidadCompra LIKE '%$busqueda_general%'
+        LIMIT $inicio, $registros_por_pagina";
 $resultado = mysqli_query($conexion, $sql);
 ?>
 
@@ -33,10 +38,12 @@ $resultado = mysqli_query($conexion, $sql);
         <div class="conten-search">
           <a class="link-registrar" href="../crear/proveedor.php">Registrar proveedor</a>
 
-          <div class="container-input-search">
-            <input class="input-buscar" name="buscar" id="buscar" type="text" placeholder="Buscar..." />
-            <img class="search-icon" src="../img/search.svg" alt="" />
-          </div>
+          <form id="form-buscar" method="GET" action="">
+            <div class="container-input-search">
+              <input class="input-buscar" name="buscar" id="buscar" type="text" placeholder="Buscar" value="<?php echo htmlspecialchars($busqueda_general); ?>" />
+              <img class="search-icon" src="../img/search.svg" alt="" />
+            </div>
+          </form>
         </div>
 
 
@@ -55,13 +62,7 @@ $resultado = mysqli_query($conexion, $sql);
                 </tr>
               </thead>
               <tbody>
-
-                <?php
-                $sql = "SELECT * FROM proveedor ";
-                $resultado = mysqli_query($conexion, $sql);
-
-                while ($filas = mysqli_fetch_array($resultado)) {
-                ?>
+              <?php while ($filas = mysqli_fetch_array($resultado)) { ?>
                   <tr>
                     <td class="td-style" label-item='Id'>
                       <?php echo $filas['Id_Proveedor'] ?>
@@ -83,13 +84,7 @@ $resultado = mysqli_query($conexion, $sql);
                       </a>
                     </td>
                   </tr>
-                <?php
-
-                }
-                ?>
-
-
-
+                <?php } ?>
               </tbody>
             </table>
           </div>
@@ -112,6 +107,24 @@ $resultado = mysqli_query($conexion, $sql);
     </div>
 
   </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const formBuscar = document.getElementById('form-buscar');
+      const inputBuscar = document.getElementById('buscar');
+
+      let timeout = null;
+
+      inputBuscar.addEventListener('input', function() {
+        clearTimeout(timeout);
+        timeout = setTimeout(function() {
+          const valorBusqueda = inputBuscar.value.trim(); 
+          formBuscar.setAttribute('action', `?buscar=${encodeURIComponent(valorBusqueda)}`); 
+          formBuscar.submit(); 
+        }, 400); 
+      });
+    });
+  </script>
 
 </body>
 

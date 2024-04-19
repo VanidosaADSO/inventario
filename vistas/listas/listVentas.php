@@ -1,16 +1,25 @@
 <?php
 include('../../models/conexion.php');
-$registros_por_pagina = 5;
+
+$registros_por_pagina = 5; 
 $pagina_actual = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
 $inicio = ($pagina_actual - 1) * $registros_por_pagina;
-$total_registros_query = "SELECT COUNT(*) as total FROM usuario";
+
+// Consulta para obtener el total de registros
+$total_registros_query = "SELECT COUNT(*) as total FROM venta";
 $total_registros_result = mysqli_query($conexion, $total_registros_query);
 $total_registros = mysqli_fetch_assoc($total_registros_result)['total'];
 $total_paginas = ceil($total_registros / $registros_por_pagina);
-$sql = "SELECT * FROM venta LIMIT $inicio, $registros_por_pagina";
+
+// Obtener el valor de búsqueda por cualquier campo
+$nombre_busqueda = isset($_GET['buscar']) ? $_GET['buscar'] : '';
+
+// Consulta para obtener los registros de la página actual con búsqueda general
+$sql = "SELECT * FROM venta 
+        WHERE Productos LIKE '%$nombre_busqueda%' OR PrecioTotalVenta LIKE '%$nombre_busqueda%' OR Fecha LIKE '%$nombre_busqueda%' 
+        LIMIT $inicio, $registros_por_pagina";
 $resultado = mysqli_query($conexion, $sql);
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -34,10 +43,12 @@ $resultado = mysqli_query($conexion, $sql);
         <div class="conten-search">
           <a class="link-registrar" href="../crear/ventas.php">Registrar venta</a>
 
-          <div class="container-input-search">
-            <input class="input-buscar" type="text" placeholder="Buscar..." />
-            <img class="search-icon" src="../img/search.svg" alt="" />
-          </div>
+          <form id="form-buscar" method="GET" action="">
+            <div class="container-input-search">
+              <input class="input-buscar" name="buscar" id="buscar" type="text" placeholder="Buscar" value="<?php echo htmlspecialchars($nombre_busqueda); ?>" />
+              <img class="search-icon" src="../img/search.svg" alt="" />
+            </div>
+          </form>
         </div>
 
 
@@ -98,9 +109,9 @@ $resultado = mysqli_query($conexion, $sql);
               <div class="content-pagination">
                 <a href="?pagina=1" class="item-pagination">&laquo;</a>
                 <?php for ($i = 1; $i <= $total_paginas; $i++) { ?>
-                  <a href="?pagina=<?php echo $i; ?>" class="item-pagination <?php if ($pagina_actual == $i) echo 'active'; ?>"><?php echo $i; ?></a>
+                  <a href="?pagina=<?php echo $i; ?>&buscar=<?php echo htmlspecialchars($nombre_busqueda); ?>" class="item-pagination <?php if ($pagina_actual == $i) echo 'active'; ?>"><?php echo $i; ?></a>
                 <?php } ?>
-                <a href="?pagina=<?php echo $total_paginas; ?>" class="item-pagination">&raquo;</a>
+                <a href="?pagina=<?php echo $total_paginas; ?>&buscar=<?php echo htmlspecialchars($nombre_busqueda); ?>" class="item-pagination">&raquo;</a>
               </div>
             </div>
           </div>
@@ -110,6 +121,24 @@ $resultado = mysqli_query($conexion, $sql);
     </div>
 
   </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const formBuscar = document.getElementById('form-buscar');
+      const inputBuscar = document.getElementById('buscar');
+
+      let timeout = null;
+
+      inputBuscar.addEventListener('input', function() {
+        clearTimeout(timeout);
+        timeout = setTimeout(function() {
+          const valorBusqueda = inputBuscar.value.trim(); 
+          formBuscar.setAttribute('action', `?buscar=${encodeURIComponent(valorBusqueda)}`); 
+          formBuscar.submit(); 
+        }, 400); 
+      });
+    });
+  </script>
 
 </body>
 

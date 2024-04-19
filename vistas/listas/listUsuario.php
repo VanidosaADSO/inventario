@@ -7,7 +7,13 @@ $total_registros_query = "SELECT COUNT(*) as total FROM usuario";
 $total_registros_result = mysqli_query($conexion, $total_registros_query);
 $total_registros = mysqli_fetch_assoc($total_registros_result)['total'];
 $total_paginas = ceil($total_registros / $registros_por_pagina);
-$sql = "SELECT * FROM usuario LIMIT $inicio, $registros_por_pagina";
+
+
+// Obtener el valor de búsqueda por cualquier campo
+$busqueda_general = isset($_GET['buscar']) ? $_GET['buscar'] : '';
+$sql = "SELECT * FROM usuario 
+        WHERE Nombre LIKE '%$busqueda_general%' or Apellido LIKE '%$busqueda_general%' or Documento LIKE '%$busqueda_general%' or Correo LIKE '%$busqueda_general%' 
+        LIMIT $inicio, $registros_por_pagina";
 $resultado = mysqli_query($conexion, $sql);
 ?>
 
@@ -31,10 +37,12 @@ $resultado = mysqli_query($conexion, $sql);
         <div class="conten-search">
           <a class="link-registrar" href="../crear/administrador.php">Registrar usuario</a>
 
-          <div class="container-input-search">
-            <input class="input-buscar" type="text" placeholder="Buscar..." />
-            <img class="search-icon" src="../img/search.svg" alt="" />
-          </div>
+          <form id="form-buscar" method="GET" action="">
+            <div class="container-input-search">
+              <input class="input-buscar" name="buscar" id="buscar" type="text" placeholder="Buscar" value="<?php echo htmlspecialchars($busqueda_general); ?>" />
+              <img class="search-icon" src="../img/search.svg" alt="" />
+            </div>
+          </form>
         </div>
 
 
@@ -94,6 +102,24 @@ $resultado = mysqli_query($conexion, $sql);
       </div>
     </div>
   </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const formBuscar = document.getElementById('form-buscar');
+      const inputBuscar = document.getElementById('buscar');
+
+      let timeout = null;
+
+      inputBuscar.addEventListener('input', function() {
+        clearTimeout(timeout);
+        timeout = setTimeout(function() {
+          const valorBusqueda = inputBuscar.value.trim();
+          formBuscar.setAttribute('action', `?buscar=${encodeURIComponent(valorBusqueda)}`);
+          formBuscar.submit();
+        }, 400);
+      });
+    });
+  </script>
 </body>
 
 </html>
