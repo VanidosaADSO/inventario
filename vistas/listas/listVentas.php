@@ -1,28 +1,87 @@
 <?php
 include('../../models/conexion.php');
-
-$registros_por_pagina = 5; 
+$registros_por_pagina = 5;
 $pagina_actual = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
 $inicio = ($pagina_actual - 1) * $registros_por_pagina;
-
-// Consulta para obtener el total de registros
-$total_registros_query = "SELECT COUNT(*) as total FROM venta";
+$total_registros_query = "SELECT COUNT(*) as total FROM usuario";
 $total_registros_result = mysqli_query($conexion, $total_registros_query);
 $total_registros = mysqli_fetch_assoc($total_registros_result)['total'];
 $total_paginas = ceil($total_registros / $registros_por_pagina);
+$sql = "SELECT * FROM venta LIMIT $inicio, $registros_por_pagina";
 
 // Obtener el valor de búsqueda por cualquier campo
-$nombre_busqueda = isset($_GET['buscar']) ? $_GET['buscar'] : '';
-
-// Consulta para obtener los registros de la página actual con búsqueda general
+$busqueda_general = isset($_GET['buscar']) ? $_GET['buscar'] : '';
 $sql = "SELECT * FROM venta 
-        WHERE Productos LIKE '%$nombre_busqueda%' OR PrecioTotalVenta LIKE '%$nombre_busqueda%' OR Fecha LIKE '%$nombre_busqueda%' 
+        WHERE Id_Venta LIKE '%$busqueda_general%' 
+        OR Productos LIKE '%$busqueda_general%' 
+        OR PrecioTotalVenta LIKE '%$busqueda_general%' 
+        OR Fecha LIKE '%$busqueda_general%' 
+        OR Id_Cliente LIKE '%$busqueda_general%' 
         LIMIT $inicio, $registros_por_pagina";
 $resultado = mysqli_query($conexion, $sql);
 ?>
 
+
 <!DOCTYPE html>
 <html lang="en">
+
+<style>
+  .btn {
+    text-decoration: none;
+    height: 34px;
+    padding: 9px 12px;
+    border-radius: 5px;
+    color: #ffffff;
+    background-color: #0AA3E1;
+    border-top: 0px solid #dee2e6;
+    border-bottom: 0px solid #dee2e6;
+    border-left: 1px solid #dee2e6;
+    border-right: 0px solid #dee2e6;
+  }
+
+  .modalProducto {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .modalProducto-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    width: 450px;
+    border-radius: 1px solid red;
+  }
+
+  .CloseModal {
+    margin-left: 166px;
+    margin-right: 166px;
+  }
+
+  .table-productos {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .table-productos th,
+  .table-productos td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+
+  .table-productos th {
+    background-color: #f2f2f2;
+  }
+</style>
 
 <head>
   <meta charset="UTF-8">
@@ -33,7 +92,7 @@ $resultado = mysqli_query($conexion, $sql);
 
 <body>
 
-<?php include('../listas/menuDashboard.php'); ?>
+  <?php include('../listas/menuDashboard.php'); ?>
 
 
   <div class="hola">
@@ -45,7 +104,7 @@ $resultado = mysqli_query($conexion, $sql);
 
           <form id="form-buscar" method="GET" action="">
             <div class="container-input-search">
-              <input class="input-buscar" name="buscar" id="buscar" type="text" placeholder="Buscar" value="<?php echo htmlspecialchars($nombre_busqueda); ?>" />
+              <input class="input-buscar" name="buscar" id="buscar" type="text" placeholder="Buscar..." value="<?php echo htmlspecialchars($busqueda_general); ?>" />
               <img class="search-icon" src="../img/search.svg" alt="" />
             </div>
           </form>
@@ -58,60 +117,86 @@ $resultado = mysqli_query($conexion, $sql);
               <thead>
                 <tr>
                   <th class="th-style ">ID</th>
+                  <th class="th-style ">Cliente</th>
                   <th class="th-style">Productos</th>
                   <th class="th-style ">Precio Venta</th>
                   <th class="th-style ">Fecha</th>
-                  <th class="th-style ">Cliente</th>
                   <th class="th-style th-actions">Acciones</th>
                 </tr>
               </thead>
               <tbody>
                 <?php
-               while ($filas = mysqli_fetch_array($resultado)) {
-                $Id_Cliente = $filas['Id_Cliente'];
-                $sql_cliente = "SELECT Nombre FROM cliente WHERE Id_Cliente = $Id_Cliente";
-                $resultado_cliente = mysqli_query($conexion, $sql_cliente);
-            
-                if ($resultado_cliente && mysqli_num_rows($resultado_cliente) > 0) {
+                while ($filas = mysqli_fetch_array($resultado)) {
+                  $Id_Cliente = $filas['Id_Cliente'];
+                  $sql_cliente = "SELECT Nombre FROM cliente WHERE Id_Cliente = $Id_Cliente";
+                  $resultado_cliente = mysqli_query($conexion, $sql_cliente);
+
+                  if ($resultado_cliente && mysqli_num_rows($resultado_cliente) > 0) {
                     $cliente = mysqli_fetch_assoc($resultado_cliente);
                     $nombreCliente = $cliente['Nombre'];
-                } else {
+                  } else {
                     $nombreCliente = 'Cliente no encontrado';
-                }
+                  }
+                  $productos = json_decode($filas['Productos'], true);
                 ?>
-                <tr>
+                  <tr>
                     <td class="td-style" label-item='Id'>
-                        <?php echo $filas['Id_Venta'] ?>
+                      <?php echo $filas['Id_Venta'] ?>
                     </td>
-                    <td class="td-style" label-item='Productos'><?php echo $filas['Productos'] ?></td>
+                    <td class="td-style" label-item='Cliente'><?php echo $nombreCliente ?></td>
+                    <td class="td-style" label-item='Productos' style="text-align: center;">
+                      <button type="button" class="btn" onclick="openModalProductos(<?php echo htmlspecialchars(json_encode($productos)); ?>)">Ver Productos</button>
+                    </td>
                     <td class="td-style" label-item='Precio Venta'><?php echo $filas['PrecioTotalVenta'] ?></td>
                     <td class="td-style" label-item='Fecha'><?php echo $filas['Fecha'] ?></td>
-                    <td class="td-style" label-item='Cliente'><?php echo $nombreCliente ?></td>
                     <td class="td-style td-actions" label-item='Acciones'>
-                        <form method="POST" action="../vistas/modificarUsuario.php">
-                            <input type="hidden" name="Id_Venta" value="<?php echo $filas['Id_Venta']; ?>">
-                            <button style="border: none;" type="submit">
-                                <img class="icon-menu" src="../img/edit.svg" alt="Edit" />
-                            </button>
-                        </form>
+                      <form method="POST" action="../vistas/modificarUsuario.php">
+                        <input type="hidden" name="Id_Venta" value="<?php echo $filas['Id_Venta']; ?>">
+                        <button style="border: none;" type="submit">
+                          <img class="icon-menu" src="../img/edit.svg" alt="Edit" />
+                        </button>
+                      </form>
                     </td>
-                </tr>
+                  </tr>
                 <?php
-            }
-            
+                }
+
                 ?>
               </tbody>
             </table>
           </div>
+
+          <!-- --------------------Modal--------------------------->
+          <div id="myModalProducto" class="modalProducto">
+            <div class="modalProducto-content">
+              <h3 id="modalTitle" style="text-align: center;"></h3>
+              <table id="productosTable" class="table-productos">
+                <thead>
+                  <tr>
+                    <th>Nombre</th>
+                    <th>Cantidad</th>
+                    <th>Precio Unidad</th>
+                    <th>Precio Total</th>
+                  </tr>
+                </thead>
+                <tbody id="productosBody">
+                  <!-- Aquí se llenarán dinámicamente los datos de los productos -->
+                </tbody>
+              </table>
+              <button class="link-registrar CloseModal" onclick="closeModal()">Cerrar Modal</button>
+            </div>
+          </div>
+
+          <!-- ---------------------PAGINADOR---------------------- -->
 
           <div class="container-pagination-report">
             <div class="container-pagination">
               <div class="content-pagination">
                 <a href="?pagina=1" class="item-pagination">&laquo;</a>
                 <?php for ($i = 1; $i <= $total_paginas; $i++) { ?>
-                  <a href="?pagina=<?php echo $i; ?>&buscar=<?php echo htmlspecialchars($nombre_busqueda); ?>" class="item-pagination <?php if ($pagina_actual == $i) echo 'active'; ?>"><?php echo $i; ?></a>
+                  <a href="?pagina=<?php echo $i; ?>" class="item-pagination <?php if ($pagina_actual == $i) echo 'active'; ?>"><?php echo $i; ?></a>
                 <?php } ?>
-                <a href="?pagina=<?php echo $total_paginas; ?>&buscar=<?php echo htmlspecialchars($nombre_busqueda); ?>" class="item-pagination">&raquo;</a>
+                <a href="?pagina=<?php echo $total_paginas; ?>" class="item-pagination">&raquo;</a>
               </div>
             </div>
           </div>
@@ -132,12 +217,54 @@ $resultado = mysqli_query($conexion, $sql);
       inputBuscar.addEventListener('input', function() {
         clearTimeout(timeout);
         timeout = setTimeout(function() {
-          const valorBusqueda = inputBuscar.value.trim(); 
-          formBuscar.setAttribute('action', `?buscar=${encodeURIComponent(valorBusqueda)}`); 
-          formBuscar.submit(); 
-        }, 400); 
+          const valorBusqueda = inputBuscar.value.trim();
+          formBuscar.setAttribute('action', `?buscar=${encodeURIComponent(valorBusqueda)}`);
+          location.href = formBuscar.getAttribute('action');
+
+        }, 400);
       });
     });
+
+    function openModalProductos(productos) {
+      const modal = document.getElementById('myModalProducto');
+      const modalTitle = document.getElementById('modalTitle');
+      const tableBody = document.getElementById('productosBody');
+
+      // Limpiar contenido previo
+      tableBody.innerHTML = '';
+
+      // Verificar si hay productos para mostrar
+      if (productos && productos.length > 0) {
+        modalTitle.textContent = 'PRODUCTOS REGISTRADOS';
+        productos.forEach(producto => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+                <td>${producto.nombre}</td>
+                <td>${producto.cantidad}</td>
+                <td>${producto.precioUnidad}</td>
+                <td>${producto.precioTotal}</td>
+            `;
+          tableBody.appendChild(row);
+        });
+      } else {
+        modalTitle.textContent = 'No hay productos disponibles';
+      }
+
+      // Mostrar la modal
+      modal.style.display = 'flex';
+    }
+
+    function closeModal() {
+      document.getElementById('myModalProducto').style.display = 'none';
+    }
+
+    // Cerrar la modal si se hace clic fuera del contenido
+    window.onclick = function(event) {
+      var modal = document.getElementById('myModalProducto');
+      if (event.target == modal) {
+        modal.style.display = 'none';
+      }
+    }
   </script>
 
 </body>

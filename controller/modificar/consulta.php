@@ -23,33 +23,39 @@ $ventas = array_values($datos_grafica);
 
 // ------------------------------------------------------------------------------
 // Consulta para hacer la grafica pare ver los productos mas vendidos en el mes
+$mes_actual = date('m');
+$año_actual = date('Y');
+
 $sql = "SELECT JSON_UNQUOTE(JSON_EXTRACT(Productos, '$[*].nombre')) AS nombre_producto, 
-JSON_UNQUOTE(JSON_EXTRACT(Productos, '$[*].cantidad')) AS cantidad
-FROM venta";
+                JSON_UNQUOTE(JSON_EXTRACT(Productos, '$[*].cantidad')) AS cantidad
+        FROM venta
+        WHERE MONTH(Fecha) = $mes_actual
+        AND YEAR(Fecha) = $año_actual";
 
 $resultado = $conexion->query($sql);
 
 $productos_mas_vendidos = array();
 
 if ($resultado->num_rows > 0) {
-  while ($fila = $resultado->fetch_assoc()) {
-    $productos = json_decode($fila['nombre_producto']);
-    $cantidades = json_decode($fila['cantidad']);
+    while ($fila = $resultado->fetch_assoc()) {
+        $productos = json_decode($fila['nombre_producto']);
+        $cantidades = json_decode($fila['cantidad']);
 
-    foreach ($productos as $key => $producto) {
-      $cantidad = $cantidades[$key];
+        foreach ($productos as $key => $producto) {
+            $cantidad = $cantidades[$key];
 
-      if (array_key_exists($producto, $productos_mas_vendidos)) {
-        $productos_mas_vendidos[$producto] += $cantidad;
-      } else {
-        $productos_mas_vendidos[$producto] = $cantidad;
-      }
+            if (array_key_exists($producto, $productos_mas_vendidos)) {
+                $productos_mas_vendidos[$producto] += $cantidad;
+            } else {
+                $productos_mas_vendidos[$producto] = $cantidad;
+            }
+        }
     }
-  }
 }
 
 arsort($productos_mas_vendidos);
 $productos_mas_vendidos = array_slice($productos_mas_vendidos, 0, 5, true);
+
 
 // ------------------------------------------------------------------------------
 // Consulta para hacer la grafica de los clientes con mas compras
@@ -111,13 +117,17 @@ if ($resultado_valores) {
 
 // -------------------------------------------------------------------------------------------------------
 // Consulta para saber cuantas ventas se hicieron en un mes
-$conn = $conexion;
-$sql = "SELECT MONTH(Fecha) AS Mes, COUNT(*) AS TotalVentas FROM venta GROUP BY MONTH(Fecha)";
+$conn = $conexion; // Suponiendo que $conexion ya está definido previamente
+$mes_actual = date('m');
+$año_actual = date('Y');
+$sql = "SELECT MONTH(Fecha) AS Mes, COUNT(*) AS TotalVentas 
+        FROM venta 
+        WHERE YEAR(Fecha) = $año_actual 
+        AND MONTH(Fecha) = $mes_actual"; // Falta un paréntesis de cierre en el SQL
 
 $result = $conn->query($sql);
 $ventasMensuales = [];
 if ($result->num_rows > 0) {
-  // Almacenar los datos de cada fila en $ventasMensuales
   while ($row = $result->fetch_assoc()) {
     $ventasMensuales[$row["Mes"]] = $row["TotalVentas"];
   }
@@ -126,19 +136,22 @@ if ($result->num_rows > 0) {
 
 // -------------------------------------------------------------------------------------------------------
 // Consulta para saber cuanto se a generado durante el mes
+
 $conn = $conexion;
+$mes_actual = date('m');
+$año_actual = date('Y');
 
 $sql = "SELECT MONTH(Fecha) AS Mes, SUM(PrecioTotalVenta) AS TotalVentas 
         FROM venta 
-        WHERE YEAR(Fecha) = YEAR(CURRENT_DATE) 
-        GROUP BY MONTH(Fecha)";
+        WHERE YEAR(Fecha) = $año_actual 
+        AND MONTH(Fecha) = $mes_actual";
 
 $result = $conn->query($sql);
 $gananciasMensuales = [];
 if ($result->num_rows > 0) {
-
-  while ($row = $result->fetch_assoc()) {
-    $gananciasMensuales[$row["Mes"]] = $row["TotalVentas"];
-  }
+    while ($row = $result->fetch_assoc()) {
+        $gananciasMensuales[$row["Mes"]] = $row["TotalVentas"];
+    }
 }
+
 mysqli_close($conexion);

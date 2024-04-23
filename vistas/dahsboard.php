@@ -2,6 +2,9 @@
 <html lang="en">
 <?php
 include('../controller/modificar/consulta.php');
+
+
+
 ?>
 
 
@@ -115,18 +118,20 @@ include('../controller/modificar/consulta.php');
         <p class="text-ventas">Ventas mensuales:
           <?php foreach ($ventasMensuales as $mes => $ventasMensuales) { ?>
             <?php echo number_format($ventasMensuales, 0, '', ','); ?>
-          <?php } ?>
+          <?php } ?>:
         </p>
-        <input type="range" class="range" id="rango" name="rango" value="Precio" min="15000" max="450000" />
+        <p>---------------------------------:</p>
+        <!-- <input type="range" class="range" id="rango" name="rango" value="Precio" min="15000" max="450000" /> -->
         <p class="text-ventas">Ventas estimadas: <?php echo number_format($ventasEstimadas, 0, '', ','); ?></p>
       </div>
 
       <div class="mensuales">
         <p class="text-ventas">Ganancias mensuales:<?php foreach ($gananciasMensuales as $mes => $gananciasMensuales) { ?>
           <?php echo number_format($gananciasMensuales, 0, '', ','); ?>
-        <?php } ?>
+        <?php } ?>:
         </p>
-        <input type="range" class="range" id="rango" name="rango" value="Precio" min="15000" max="450000" />
+        <!-- <input type="range" class="range" id="rango" name="rango" value="Precio" min="15000" max="450000" /> -->
+        <p>---------------------------------:</p>
         <p class="text-ventas">Ganacias estimadas: <?php echo number_format($gananciasEstimadas, 0, '', ','); ?>$</p>
       </div>
     </div>
@@ -284,6 +289,8 @@ include('../controller/modificar/consulta.php');
     </div>
 
   </div>
+
+  
 
 </body>
 
