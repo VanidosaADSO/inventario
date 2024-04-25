@@ -59,26 +59,24 @@ $productos_mas_vendidos = array_slice($productos_mas_vendidos, 0, 5, true);
 
 // ------------------------------------------------------------------------------
 // Consulta para hacer la grafica de los clientes con mas compras
-$query = "SELECT Nombre, compras
-            FROM cliente
-            ORDER BY compras DESC
-            LIMIT 5";
-$resultado = mysqli_query($conexion, $query);
+// Consulta para hacer la grafica de los clientes con mas compras
+$queryClientes = "SELECT c.Nombre AS NombreCliente,
+    COUNT(v.Id_Venta) AS TotalCompras,
+    (COUNT(v.Id_Venta) / (SELECT COUNT(*) FROM venta)) * 100 AS PorcentajeCompras
+    FROM venta v
+    INNER JOIN cliente c ON v.Id_Cliente = c.Id_Cliente
+    GROUP BY v.Id_Cliente
+    ORDER BY TotalCompras DESC
+    LIMIT 5";
+
+$resultadoClientes = mysqli_query($conexion, $queryClientes);
 
 $nombresClientes = [];
-$comprasClientes = [];
-$totalCompras = 0;
-
-while ($fila = mysqli_fetch_assoc($resultado)) {
-  $nombresClientes[] = $fila['Nombre'];
-  $comprasClientes[] = $fila['compras'];
-  $totalCompras += $fila['compras'];
-}
-
 $porcentajesCompras = [];
-foreach ($comprasClientes as $compras) {
-  $porcentaje = ($compras / $totalCompras) * 100;
-  $porcentajesCompras[] = round($porcentaje, 2);
+
+while ($fila = mysqli_fetch_assoc($resultadoClientes)) {
+    $nombresClientes[] = $fila['NombreCliente'];
+    $porcentajesCompras[] = $fila['PorcentajeCompras'];
 }
 
 

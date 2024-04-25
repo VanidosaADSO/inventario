@@ -7,7 +7,7 @@ if (isset($_POST['Registrar'])) {
     $documento = $_POST['documento'];
     $correo = $_POST['correo'];
     $contrasena = $_POST['contrasena'];
-    $contrasenaEncryp = md5($contrasena);
+    // $contrasenaEncryp = md5($contrasena);
     $imagen = addslashes(file_get_contents($_FILES['imagen']['tmp_name']));
 
     $consulta_documento = "SELECT * FROM `usuario` WHERE `documento` = '$documento'";
@@ -34,7 +34,7 @@ if (isset($_POST['Registrar'])) {
     }
 
     $consulta_insertar = "INSERT INTO `usuario`(`nombre`, `apellido`, `documento`, `correo`,`contrasena`, `imagen`) 
-    VALUES ('$nombre','$apellido','$documento','$correo','$contrasenaEncryp', '$imagen');";
+    VALUES ('$nombre','$apellido','$documento','$correo','$contrasena', '$imagen');";
 
     $resultado_insertar = mysqli_query($conexion, $consulta_insertar);
 

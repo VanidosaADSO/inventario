@@ -30,6 +30,6 @@ if (isset($_POST['ingresar'])) {
     }
 
     mysqli_free_result($resultado);
-    mysqli_close($conexion);
+    // mysqli_close($conexion);
 }
 ?>

@@ -32,12 +32,6 @@
               placeholder="Contraseña"
             /><br />
 
-            <p class="link-login">
-              ¿Has olvidado tu contraseña?
-              <a class="link" href="../vistas/recuperar.php">Recuperar</a>
-              <!-- <a class="link" href="./recuperar.html">Recuperar</a> -->
-            </p>
-
              <div class="content-button-login">
               <input class="bnt-loguear"  type="submit" value="Ingresar" name="ingresar">
               <!-- <button class="bnt-loguear" type="submit" value>

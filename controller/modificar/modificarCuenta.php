@@ -7,7 +7,7 @@ if (isset($_POST['guardarcambios'])) {
   $documento = $_POST['documento'];
   $correo = $_POST['correo'];
   $contrasena = $_POST['contrasena'];
-  $contrasenaEncryp = md5($contrasena);
+  // $contrasenaEncryp = md5($contrasena);
   $usuario_id = $_POST['Id_usuario'];
 
   $imagen_query = "";
@@ -16,7 +16,7 @@ if (isset($_POST['guardarcambios'])) {
     $imagen_query = ", imagen = '$imagen'";
   }
 
-  $consulta = "UPDATE `usuario` SET `nombre`='$nombre', `apellido`='$apellido', `documento`='$documento', `correo`='$correo', `contrasena`='$contrasenaEncryp' $imagen_query WHERE `Id_Usuario`='$usuario_id'";
+  $consulta = "UPDATE `usuario` SET `nombre`='$nombre', `apellido`='$apellido', `documento`='$documento', `correo`='$correo', `contrasena`='$contrasena' $imagen_query WHERE `Id_Usuario`='$usuario_id'";
 
   $update_result = mysqli_query($conexion, $consulta);
 
